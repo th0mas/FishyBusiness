@@ -7,4 +7,8 @@ const gameReducer = (state, event) => {
   }
 }
 
+const meReducer = (state, event) => {
+  
+}
+
 export default gameReducer;
