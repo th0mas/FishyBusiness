@@ -6,18 +6,17 @@ import { Socket } from 'phoenix'
 import SocketContext from './socketContext'
 
 const SocketProvider = ({ wsUrl, options, children }) => {
-  const socket = new Socket(wsUrl, { params: options })
-  useEffect(() => { socket.connect() }, [options, wsUrl])
-
+  const socket = new Socket(wsUrl, { params: options });
+  useEffect(() => { socket.connect() }, [options, wsUrl]);
   return (
     <SocketContext.Provider value={socket}>
-      { children }
+      { children}
     </SocketContext.Provider>
-   )
- }
+  );
+}
 
 SocketProvider.defaultProps = {
- options: {}
+  options: {}
 }
 
 SocketProvider.propTypes = {

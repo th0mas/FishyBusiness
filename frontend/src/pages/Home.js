@@ -35,7 +35,7 @@ function Home({ setToken, setgameCode }) {
             </div>
             <div className="m-4">
                 <button onClick={handleJoinGame} className="p-2 mr-4 rounded-md text-white text-xl bg-blue-700">join game</button>
-                <input onInput={e => setGameCode(e.target.value)} value={gameCode} className="p-2 border-2 border-gray-100 rounded-md focus:outline-none focus:ring focus:border-blue-300" placeholder="game code" type="text"></input>
+                <input onInput={e => setGameCode(e.target.value)} value={gameCode} className="p-2 border-2 text-l border-gray-100 rounded-md focus:outline-none focus:ring focus:border-blue-300" placeholder="game code" type="text"></input>
             </div>
         </div>
     );

@@ -20,7 +20,7 @@ const useChannel = (gameCode, reducer, initialState, token) => {
     return () => {
       channel.leave()
     }
-  }, [gameCode])
+  }, [gameCode, socket, token])
 
   return state
 }
