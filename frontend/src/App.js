@@ -2,21 +2,25 @@ import Play from './pages/Play';
 import Home from './pages/Home';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SocketProvider from './services/channel/SocketProvider'
+import { useState } from 'react';
 
 function App() {
+  const [token, setToken] = useState();
+  const [gameCode, setgameCode] = useState();
+
   return (
-  <SocketProvider wsUrl={"/socket"} >
-    <BrowserRouter>
-      <Switch>
-        <Route path="/play">
-          <Play />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </BrowserRouter>
-  </SocketProvider>
+    <SocketProvider wsUrl={"/socket"} >
+      <BrowserRouter>
+        <Switch>
+          <Route path="/">
+            <Home setToken={setToken} setgameCode={setgameCode}/>
+          </Route>
+          <Route path="/play">
+            <Play token={token} gameCode={gameCode}/>
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </SocketProvider>
   );
 }
 
