@@ -23,9 +23,10 @@ function Lobby({ state, gameCode, updateplayername }) {
         <h3>opponents:</h3>
         {
           state.players.map((p, index) => {
+            console.log(p)
             return (
               <div key={index} className="playername">
-                <p className="" >{p.joined}</p>
+                <p className="">{p.name}</p>
               </div>
             );
           })

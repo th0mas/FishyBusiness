@@ -8,11 +8,18 @@ const gameReducer = (state, event) => {
     case 'presence_state':
       let players = [];
       for (let key in event.payload) {
-        players.push(event.payload[key].metas);
+        players.push(event.payload[key].metas[0]);
       }
-      console.log(players)
       return {
         ...state, players: players
+      }
+    case 'presence_diff':
+      let p = [];
+      for (let key in event.payload.joins) {
+        p.push(event.payload.joins[key].metas[0]);
+      }
+      return {
+        ...state, players: (state.players.concat(p))
       }
     default:
       return state
