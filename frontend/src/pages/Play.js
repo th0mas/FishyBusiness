@@ -7,10 +7,9 @@ function Play({ state }) {
   return (
     <div className="play">
       <Navbar me={state.me} />
-      <h1>Play</h1>
-      {
-        regions
-      }
+      <div className="flex flex-wrap">
+        {regions}
+      </div>
     </div>
   );
 }
