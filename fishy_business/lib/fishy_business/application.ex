@@ -18,7 +18,12 @@ defmodule FishyBusiness.Application do
       # Start a worker by calling: FishyBusiness.Worker.start_link(arg)
       # {FishyBusiness.Worker, arg},
 
-      FishyBusinessWeb.Presence
+      FishyBusinessWeb.Presence,
+
+      FishyBusiness.Game.Supervisor,
+
+      {Registry, keys: :unique, name: FishyBusiness.Registry}
+
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
