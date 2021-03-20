@@ -1,7 +1,7 @@
-import ShopItem from "./ShopItem";
+import SlideItem from "./SlideItem";
 
-const Shop = ({ setShow }) => {
-  const shopItems = [{name: "Fishing Rod", price: 10, description: "Mild overfishing", img: "Rod"},
+const SlideWindow = ({ title, setShow, me}) => {
+  const windowItems = [{name: "Fishing Rod", price: 10, description: "Mild overfishing", img: "Rod"},
                      {name: "Fishing Net", price: 100, description: "Big overfishing", img: "Net"}]
 
   return (
@@ -21,12 +21,19 @@ const Shop = ({ setShow }) => {
             <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
               <div className="px-4 sm:px-6">
                 <h2 id="slide-over-heading" className="text-lg font-medium text-gray-900">
-                  Shop
+                  { title }
                 </h2>
               </div>
               <div className="mt-6 relative flex-1 px-4 sm:px-6">
                 <div className="absolute inset-0 px-4 sm:px-6">
-                  { shopItems.map(item => <ShopItem key={item.name} item={item} />) }
+                  { title === "Shop" ? windowItems.map(item => {
+                    if (me.items.filter(e => e.name === item.name).length === 0) {
+                      return <SlideItem key={item.name} item={item} me={me} shop={true} />
+                    }
+                  }) : me.items.length === 0 ? 
+                    <p>No items :(</p> :  
+                    me.items.map(item => <SlideItem key={item.name} item={item} me={me} shop={false} /> )
+                  }
                 </div>
               </div>
             </div>
@@ -37,4 +44,4 @@ const Shop = ({ setShow }) => {
   )
 }
 
-export default Shop
+export default SlideWindow

@@ -1,6 +1,6 @@
 import logo from "../images/fish.png";
 
-const Navbar = ({ me, setShow }) => {
+const Navbar = ({ me, setShowShop, setShowItems }) => {
 
   return (
     <div>
@@ -20,7 +20,8 @@ const Navbar = ({ me, setShow }) => {
             </div>
               <div className="md:block">
                 <div className="flex items-center md:ml-6">
-                  <button onClick={() => setShow(true)} className="text-gray-300 px-3 py-2 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Shop</button>
+                <button onClick={() => setShowItems(true)} className="text-gray-300 px-3 py-2 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Items</button>
+                  <button onClick={() => setShowShop(true)} className="text-gray-300 px-3 py-2 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Shop</button>
                 </div>
               </div>
           </div>

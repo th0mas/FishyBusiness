@@ -1,5 +1,4 @@
 const gameReducer = (state, event) => {
-  console.log(event)
   switch (event.event) {
     case 'playing':
       return { ...state, playing: event.payload }
@@ -14,6 +13,11 @@ const gameReducer = (state, event) => {
       return {
         ...state, players: players
       }
+      return { ...state, me: { ...state.me, name: event.payload }}
+    case 'items-update':
+      return { ...state, me: { ...state.me, items: event.payload}}
+    case 'money-update':
+      return { ...state, me: { ...state.me, money: event.payload}}
     default:
       return state
   }
