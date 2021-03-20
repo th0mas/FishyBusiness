@@ -15,7 +15,7 @@ defmodule FishyBusinessWeb.GameChannel do
         send(self(), :after_join)
         s = socket
         |> assign(:game_id, game.id)
-        |> assign(:user_id, game_slug <> "_" <> name)
+        |> assign(:client_id, game_slug <> "_" <> name)
         {:ok, s}
       {:error, _} -> :error
     end
