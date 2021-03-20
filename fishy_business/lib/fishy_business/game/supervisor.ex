@@ -1,4 +1,5 @@
 defmodule FishyBusiness.Game.Supervisor do
+  alias FishyBusiness.Game.Manager
   use DynamicSupervisor
 
   def start_link(init_arg) do
@@ -10,5 +11,8 @@ defmodule FishyBusiness.Game.Supervisor do
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-
+  def start_child(args) do
+    spec = {Manager, args}
+    DynamicSupervisor.start_child(__MODULE__, spec)
+  end
 end
