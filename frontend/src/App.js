@@ -12,11 +12,11 @@ function App() {
     <SocketProvider wsUrl={"/socket"} >
       <BrowserRouter>
         <Switch>
-          <Route path="/">
-            <Home setToken={setToken} setgameCode={setgameCode} />
-          </Route>
           <Route path="/play">
             <Play token={token} gameCode={gameCode} />
+          </Route>
+          <Route path="/">
+            <Home setToken={setToken} setgameCode={setgameCode} />
           </Route>
         </Switch>
       </BrowserRouter>
