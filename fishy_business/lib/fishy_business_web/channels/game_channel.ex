@@ -15,6 +15,16 @@ defmodule FishyBusinessWeb.GameChannel do
     end
   end
 
+  # Define special cases now
+
+
+  # Default handler - if in doubt just push to clients
+  def handle_in(event, payload, socket) do
+    broadcast!(socket, event, payload)
+
+    {:noreply, socket}
+  end
+
   def handle_info(:after_join, socket) do
     {:ok, _} = Presence.track(socket, socket.assigns.client_id, %{
       joined: inspect(System.system_time(:second))
