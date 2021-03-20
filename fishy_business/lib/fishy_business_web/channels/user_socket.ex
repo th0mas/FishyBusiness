@@ -1,6 +1,8 @@
 defmodule FishyBusinessWeb.UserSocket do
   use Phoenix.Socket
 
+  require Logger
+
   ## Channels
   # channel "room:*", FishyBusinessWeb.RoomChannel
   channel "game:*", FishyBusinessWeb.GameChannel
@@ -18,7 +20,13 @@ defmodule FishyBusinessWeb.UserSocket do
   # performing token verification on connect.
   @impl true
   def connect(%{"client_id" => client_id}, socket, _connect_info) do
+    Logger.info("Client ID #{client_id} connected")
     {:ok, assign(socket, :client_id, client_id)}
+  end
+
+  def connect(_args, socket, _info) do
+    Logger.info("Client ID anon connected")
+    {:ok, assign(socket, :client_id, "test")}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

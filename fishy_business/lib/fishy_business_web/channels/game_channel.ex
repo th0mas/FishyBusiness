@@ -1,11 +1,14 @@
 defmodule FishyBusinessWeb.GameChannel do
   use FishyBusinessWeb, :channel
 
+  require Logger
+
   alias FishyBusiness.Game
   alias FishyBusiness.Game.Room
   alias FishyBusinessWeb.Presence
 
   def join("game:" <> game_slug, %{"token" => token}, socket) do
+    Logger.info("Connected")
     game = Game.find_room_by_slug(game_slug)
     case Phoenix.Token.verify(socket, "room", token) do
       {:ok, _} ->
@@ -13,6 +16,11 @@ defmodule FishyBusinessWeb.GameChannel do
         {:ok, assign(socket, :game_id, game.id)}
       {:error, _} -> :error
     end
+  end
+
+  def join("game:" <> _game_slug, _params, _socket) do
+    Logger.info("No token")
+    {:error, %{reason: "No Token"}}
   end
 
   # Define special cases now
