@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Socket } from 'phoenix'
 
-import SocketContext from '../contexts/socketContext'
+import SocketContext from './socketContext'
 
 const SocketProvider = ({ wsUrl, options, children }) => {
   const socket = new Socket(wsUrl, { params: options })
