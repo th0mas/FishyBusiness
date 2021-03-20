@@ -9,17 +9,17 @@ defmodule FishyBusiness.Game.Manager do
     playing: true,
     regions: [
       %{
-        stocks: 1000,
+        stock: 1000,
         types: ["haddock", "cod"],
         active: []
       },
       %{
-        stocks: 500,
+        stock: 500,
         types: ["hake", "cod"],
         active: []
       },
       %{
-        stocks: 700,
+        stock: 700,
         types: ["haddock", "salmon"],
         active: []
       },

@@ -7,7 +7,7 @@ import dispatchContext from "../services/dispatchContext";
 
 function Game({ name, token, gameCode }) {
   const initialState = {
-    playing: true,
+    playing: false,
     players: [],
     regions:[  {
         stock: 1000,
@@ -27,15 +27,13 @@ function Game({ name, token, gameCode }) {
   const [state, localDispatch] = useChannel(name, gameCode, gameReducer, initialState, token);
 
   return (
+
+    
     <dispatchContext.Provider value={localDispatch}>
-    <Switch>
-      <Route path={`${path}/play`}>
-        <Play state={state} />
-      </Route>
-      <Route path={`${path}`}>
-        <Lobby state={state} gameCode={gameCode} updateplayername={(name) => { localDispatch("name-change", name); }} />
-      </Route>
-    </Switch>
+     { state.playing 
+      ? <Play state={state} /> 
+      : <Lobby state={state} gameCode={gameCode} updateplayername={(name) => { localDispatch("name-change", name); }} />
+     }
     </dispatchContext.Provider>
   );
 }
