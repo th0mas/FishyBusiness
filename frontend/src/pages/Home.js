@@ -11,7 +11,7 @@ function Home({ setToken, setgameCode }) {
         () => {
             requestGameToken(gameCode, setToken);
             setgameCode(gameCode);
-            history.push('/play');
+            history.push('/game');
         },
         [gameCode, history, setToken, setgameCode]
     );
@@ -22,7 +22,7 @@ function Home({ setToken, setgameCode }) {
                 alert("please enter a code");
                 return;
             }
-            history.push('/play');
+            history.push('/game');
         }
         ,
         [gameCode, history]
