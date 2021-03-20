@@ -6,7 +6,7 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 
 function Game({ token, gameCode }) {
   const initialState = {
-    playing: false,
+    playing: true,
     players: [],
     regions: [
       {
