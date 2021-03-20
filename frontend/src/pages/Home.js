@@ -21,13 +21,16 @@ function Home({ setToken, setgameCode }) {
       if (gameCode === "") {
         alert("please enter a code");
         return;
+      } else {
+        requestGameToken(gameCode, setToken)
+        setgameCode(gameCode)
       }
       setgameCode(gameCode);
       requestGameToken(gameCode, setToken);
       history.push('/game');
     }
     ,
-    [gameCode, history, setToken, setgameCode]
+    [gameCode, history]
   );
   return (
     <div className="home h-screen p-10 px-12 bg-gradient-to-r from-purple-500 to-blue-500">
