@@ -18,6 +18,8 @@ const gameReducer = (state, event) => {
       return { ...state, me: { ...state.me, items: event.payload}}
     case 'money-update':
       return { ...state, me: { ...state.me, money: event.payload}}
+    case 'init_game':
+      return {...state, ...event.payload}
     default:
       return state
   }
