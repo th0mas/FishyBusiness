@@ -12,7 +12,7 @@ function Game({ token, gameCode }) {
     },
   };
 
-  const { state, localDispatch } = useChannel(gameCode, gameReducer, initialState, token);
+  const [state, localDispatch] = useChannel(gameCode, gameReducer, initialState, token);
 
   return (
     <div>
