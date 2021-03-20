@@ -4,18 +4,41 @@ defmodule FishyBusinessWeb.RoomController do
   alias FishyBusiness.Game
   alias FishyBusiness.Game.Room
 
+  require Logger
+
   action_fallback FishyBusinessWeb.FallbackController
 
-  def index(conn, _params) do
-    rooms = Game.list_rooms()
-    render(conn, "index.json", rooms: rooms)
+  def index(conn, %{"slug" => slug, "password" => password}) do
+    room = Game.find_room_by_slug(slug)
+    if Game.check_password(room, password) do
+      r = room
+        |> Map.from_struct()
+        |> Map.put(:token, create_token(room))
+
+      render(conn, "join.json", room: r)
+    else
+      {:error, :pass}
+    end
+  end
+
+  def index(conn, %{"slug" => slug}) do
+    room = Game.find_room_by_slug(slug)
+    Logger.log(:info, "actual pass" <> room.password)
+    if Game.check_password(room, "") do
+      r = room
+        |> Map.from_struct()
+        |> Map.put(:token, create_token(room))
+
+      render(conn, "join.json", room: r)
+    else
+      {:error, :pass}
+    end
   end
 
   def create(conn, %{"room" => room_params}) do
     with {:ok, %Room{} = room} <- Game.create_room(room_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.room_path(conn, :show, room))
       |> render("show.json", room: room)
     end
   end
@@ -39,5 +62,9 @@ defmodule FishyBusinessWeb.RoomController do
     with {:ok, %Room{}} <- Game.delete_room(room) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  def create_token(%Room{} = room) do
+    Phoenix.Token.sign(FishyBusinessWeb.Endpoint, "room", room.id)
   end
 end

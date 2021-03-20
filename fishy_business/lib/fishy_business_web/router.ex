@@ -7,6 +7,9 @@ defmodule FishyBusinessWeb.Router do
 
   scope "/api", FishyBusinessWeb do
     pipe_through :api
+
+    get "/rooms/:slug", RoomController, :index
+    post "/rooms", RoomController, :create
   end
 
   # Enables LiveDashboard only for development

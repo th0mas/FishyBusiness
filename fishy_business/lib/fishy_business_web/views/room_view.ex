@@ -14,6 +14,13 @@ defmodule FishyBusinessWeb.RoomView do
     %{id: room.id,
       slug: room.slug,
       name: room.name,
-      password: room.password}
+    }
+  end
+
+  def render("join.json", %{room: room}) do
+    %{
+      slug: room.slug,
+      token: room.token
+    }
   end
 end

@@ -21,4 +21,11 @@ defmodule FishyBusinessWeb.FallbackController do
     |> put_view(FishyBusinessWeb.ErrorView)
     |> render(:"404")
   end
+
+  def call(conn, {:error, :pass}) do
+    conn
+    |> put_status(:unauthorized)
+    |> put_view(FishyBusinessWeb.ErrorView)
+    |> render(:"401")
+  end
 end

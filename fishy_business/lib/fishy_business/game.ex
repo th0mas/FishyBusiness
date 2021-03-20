@@ -37,6 +37,10 @@ defmodule FishyBusiness.Game do
   """
   def get_room!(id), do: Repo.get!(Room, id)
 
+  def find_room_by_slug(slug) do
+    Repo.get_by(Room, slug: slug)
+  end
+
   @doc """
   Creates a room.
 
@@ -51,7 +55,7 @@ defmodule FishyBusiness.Game do
   """
   def create_room(attrs \\ %{}) do
     %Room{}
-    |> Room.changeset(attrs)
+    |> Room.create_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -100,5 +104,13 @@ defmodule FishyBusiness.Game do
   """
   def change_room(%Room{} = room, attrs \\ %{}) do
     Room.changeset(room, attrs)
+  end
+
+  def check_password(%Room{} = room, password) do
+    case room.password do
+      nil -> true
+      "" -> true
+      pass -> pass == password
+    end
   end
 end

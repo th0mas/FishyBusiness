@@ -2,9 +2,11 @@ defmodule FishyBusiness.Game.Room do
   use Ecto.Schema
   import Ecto.Changeset
 
+  require Logger
+
   schema "rooms" do
     field :name, :string
-    field :password, :binary
+    field :password, :string
     field :slug, :string
 
     timestamps()
@@ -13,7 +15,20 @@ defmodule FishyBusiness.Game.Room do
   @doc false
   def changeset(room, attrs) do
     room
-    |> cast(attrs, [:slug, :name, :password])
-    |> validate_required([:slug, :name, :password])
+    |> cast(attrs, [:name, :password])
+    |> validate_required([:name])
   end
+
+  def create_changeset(room, attrs) do
+    room
+    |> changeset(attrs)
+    |> put_change(:slug, create_slug(10))
+  end
+
+  def create_slug(length) do
+    :crypto.strong_rand_bytes(length) |> Base.url_encode64() |> binary_part(0, length)
+  end
+
+
+
 end
