@@ -1,6 +1,8 @@
 defmodule FishyBusiness.Game.Manager do
   use GenServer
 
+  require Logger
+
   import FishyBusinessWeb.Endpoint
 
   @initial_state %{
@@ -26,13 +28,16 @@ defmodule FishyBusiness.Game.Manager do
 
   def start_link(opts) do
     name = Keyword.get(opts, :name)
-    GenServer.start_link(__MODULE__, opts, name: name)
+    state = opts |> Enum.into(%{})
+    GenServer.start_link(__MODULE__, state, name: name)
   end
 
   def init(%{game: game, players: _players} = state) do
-    send(self(), :init_game)
     broadcast!(game, "init_game", @initial_state)
+
+    Logger.info("Game manager inited for" <> game)
     {:ok, state}
   end
+
 
 end

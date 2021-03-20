@@ -1,17 +1,21 @@
 import { useState } from "react"
 import Navbar from "../components/Navbar";
 import Region from "../components/Region";
-import Shop from "../components/Shop";
+import SlideWindow from "../components/SlideWindow";
 
 function Play({ state }) {
   const [showShop, setShowShop] = useState(false);
+  const [showItems, setShowItems] = useState(false);
   const regions = state.regions.map((_, index) => <Region key={index} index={index} regionState={state.regions[index]} />)
 
   return (
     <div className="play">
-      <Navbar me={state.me} setShow={setShowShop} />
+      <Navbar me={state.me} setShowShop={setShowShop} setShowItems={setShowItems}/>
       {showShop &&
-        <Shop setShow={setShowShop} />
+        <SlideWindow title="Shop" setShow={setShowShop} me={state.me} />
+      }
+      {showItems &&
+        <SlideWindow title="Items" setShow={setShowItems} me={state.me} />
       }
       <div className="flex">{regions}</div>
     </div>

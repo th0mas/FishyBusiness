@@ -2,7 +2,7 @@ use Mix.Config
 
 # Configure your database
 config :fishy_business, FishyBusiness.Repo,
-  username: "Joel",
+  username: "tomh",
   password: "",
   database: "fishy_business_dev",
   hostname: "localhost",

@@ -30,6 +30,10 @@ defmodule FishyBusinessWeb.GameChannel do
   # Define special cases now
 
   def handle_in("start_game", _, socket) do
+    Game.Supervisor.start_child(name: get_manager_name(socket.topic),
+      game: socket.topic,
+      players: Presence.list(socket))
+
     {:noreply, socket}
   end
 
@@ -52,5 +56,8 @@ defmodule FishyBusinessWeb.GameChannel do
     {:noreply, socket}
   end
 
+  def get_manager_name(room) do
+    {:via, Registry, {FishyBusiness.Registry, room}}
+  end
 
 end

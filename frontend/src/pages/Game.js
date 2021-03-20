@@ -3,6 +3,7 @@ import Play from "./Play";
 import useChannel from "../services/channel/useChannel";
 import gameReducer from "../services/gameReducer"
 import { Route, Switch, useRouteMatch } from "react-router-dom";
+import dispatchContext from "../services/dispatchContext";
 
 function Game({ name, token, gameCode }) {
   const initialState = {
@@ -32,8 +33,9 @@ function Game({ name, token, gameCode }) {
     ],
     me: {
       name: "player",
-      money: 0,
+      money: 15,
       bait: 10,
+      items: [],
     },
   };
 
@@ -41,6 +43,7 @@ function Game({ name, token, gameCode }) {
   const [state, localDispatch] = useChannel(name, gameCode, gameReducer, initialState, token);
 
   return (
+    <dispatchContext.Provider value={localDispatch}>
     <Switch>
       <Route path={`${path}/play`}>
         <Play state={state} />
@@ -49,6 +52,7 @@ function Game({ name, token, gameCode }) {
         <Lobby state={state} gameCode={gameCode} updateplayername={(name) => { localDispatch("name-change", name); }} />
       </Route>
     </Switch>
+    </dispatchContext.Provider>
   );
 }
 
