@@ -1,12 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Socket } from 'phoenix'
 
 import SocketContext from './socketContext'
 
 const SocketProvider = ({ wsUrl, options, children }) => {
-  const socket = new Socket(wsUrl, { params: options });
-  useEffect(() => { socket.connect() }, [options, wsUrl]);
+  const [socket, setSocket] = useState()
+  useEffect(() => {
+    const socket = new Socket('ws://localhost:4000/socket');
+    socket.connect();
+    setSocket(socket);
+  }, [])
+
+  if (!socket) return null;
+
   return (
     <SocketContext.Provider value={socket}>
       {children}

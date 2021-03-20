@@ -1,4 +1,5 @@
 const gameReducer = (state, event) => {
+  console.log(event)
   switch (event.event) {
     case 'playing':
       return { ...state, playing: event.payload }

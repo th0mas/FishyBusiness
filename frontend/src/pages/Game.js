@@ -38,7 +38,6 @@ function Game({ token, gameCode }) {
   };
 
   const { path } = useRouteMatch();
-
   const [state, localDispatch] = useChannel(gameCode, gameReducer, initialState, token);
 
   return (
