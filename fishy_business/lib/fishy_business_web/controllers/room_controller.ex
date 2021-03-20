@@ -23,16 +23,21 @@ defmodule FishyBusinessWeb.RoomController do
   end
 
   def index(conn, %{"slug" => slug}) do
-    room = Game.find_room_by_slug(slug)
-    Logger.log(:info, "actual pass" <> room.password)
-    if Game.check_password(room, "") do
-      r = room
-        |> Map.from_struct()
-        |> Map.put(:token, Phoenix.Token.sign(conn, "room", room.id))
 
-      render(conn, "join.json", room: r)
-    else
-      {:error, :pass}
+    case Game.find_room_by_slug(slug) do
+      %Room{} = room ->
+        Logger.log(:info, "actual pass" <> room.password)
+        if Game.check_password(room, "") do
+        r = room
+          |> Map.from_struct()
+          |> Map.put(:token, Phoenix.Token.sign(conn, "room", room.id))
+
+        render(conn, "join.json", room: r)
+      else
+        {:error, :pass}
+      end
+
+      nil -> {:error, :not_found}
     end
   end
 
