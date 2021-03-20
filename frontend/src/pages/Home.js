@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
-import {requestGameToken, createNewGame} from "../services/api/game";
+import { requestGameToken, createNewGame } from "../services/api/game";
 
 function Home({ setToken, setgameCode }) {
   const [gameCode, setGameCode] = useState("");
@@ -10,8 +10,8 @@ function Home({ setToken, setgameCode }) {
   const handleNewGame = useCallback(
     async () => {
       try {
-        let {slug} = createNewGame('Default Game', '');
-        let token = requestGameToken(slug, setToken);
+        let { slug } = createNewGame('Default Game', '');
+        let token = await requestGameToken(slug);
         setToken(token);
         setgameCode(slug);
         history.push('/game');
@@ -19,7 +19,7 @@ function Home({ setToken, setgameCode }) {
         throw e;
       }
     },
-    [gameCode, history, setToken, setgameCode]
+    [history, setToken, setgameCode]
   );
 
   const handleJoinGame = useCallback(
@@ -29,7 +29,7 @@ function Home({ setToken, setgameCode }) {
         return;
       }
       try {
-        const token = await requestGameToken(gameCode, setToken);
+        const token = await requestGameToken(gameCode);
         setToken(token);
         setgameCode(gameCode)
         history.push('/game');

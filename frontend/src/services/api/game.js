@@ -1,26 +1,35 @@
 const url = "http://localhost:4000/api/rooms/"
 
-const headers = {'Accept': 'application/json',
-'Content-Type': 'application/json'}
-
-const requestGameToken = (gameName, setToken) => {
-  fetch(url + gameName)
-    .then(response => response.json())
-    .then(data => setToken(data.token))
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
 }
 
-const createNewGame = (name, password) => {
-  let body = JSON.stringify({ room: {
-    name: name,
-    password: password
-  }})
+const requestGameToken = async (gameName) => {
+  const res = await fetch(url + gameName);
+  const response = await res.json()
+  if (res.ok) {
+    return response.token;
+  } else {
+    throw Error();
+  }
+}
 
-  return fetch(url, {
+const createNewGame = async (name, password) => {
+  let body = JSON.stringify({
+    room: {
+      name: name,
+      password: password
+    }
+  })
+
+  const res = await fetch(url, {
     method: 'POST',
     headers: headers,
     body: body
-  }).then(resp => resp.json())
-  .then(body => body.data)
+  });
+  const response = await res.json();
+  return response.data();
 }
 
-export {requestGameToken, createNewGame};
+export { requestGameToken, createNewGame };
