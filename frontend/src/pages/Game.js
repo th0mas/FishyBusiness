@@ -9,6 +9,8 @@ function Game({ token, gameCode }) {
     players: [],
     me: {
       name: "player",
+      money: 0,
+      bait: 10,
     },
   };
 
