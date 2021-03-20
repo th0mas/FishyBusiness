@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
+import requestGameToken from "../services/api/requestGameToken";
 
 function Home({ setToken, setgameCode }) {
     const [gameCode, setGameCode] = useState("");
@@ -7,25 +8,25 @@ function Home({ setToken, setgameCode }) {
     const history = useHistory();
 
     const handleNewGame = useCallback(
-        () => (history.push('/play')),
-        [history]
+        () => {
+            requestGameToken(gameCode, setToken);
+            setgameCode(gameCode);
+            history.push('/play');
+        },
+        [gameCode, history, setToken, setgameCode]
     );
 
     const handleJoinGame = useCallback(
-        () => (
-            gameCode !== "" ?
-                history.push('/play')
-                :
-                alert("please enter a code")
-        )
+        () => {
+            if (gameCode === "") {
+                alert("please enter a code");
+                return;
+            }
+            history.push('/play');
+        }
         ,
         [gameCode, history]
     );
-    const handleClick = () => {
-        // requestGameToken(gameCode, setToken)
-        setgameCode(gameCode)
-    }
-
     return (
         <div className="home h-screen p-10 px-12 bg-gradient-to-r from-purple-500 to-blue-500">
             <h1 className="m-4 py-4 text-4xl text-white font-semibold">Fishy business</h1>
@@ -34,7 +35,6 @@ function Home({ setToken, setgameCode }) {
             </div>
             <div className="m-4">
                 <button onClick={handleJoinGame} className="p-2 mr-4 rounded-md text-white text-xl bg-blue-700">join game</button>
-                <button onClick={handleClick} className="p-2 mr-4 rounded-md text-white text-xl bg-blue-700">join game</button>
                 <input onInput={e => setGameCode(e.target.value)} value={gameCode} className="p-2 border-2 border-gray-100 rounded-md focus:outline-none focus:ring focus:border-blue-300" placeholder="game code" type="text"></input>
             </div>
         </div>

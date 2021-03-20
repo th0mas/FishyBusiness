@@ -4,4 +4,4 @@ const requestGameToken = (gameName, setToken) => {
     .then(data => setToken(data.token))
 }
 
-export default requestGameToken
+export default requestGameToken;

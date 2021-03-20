@@ -13,10 +13,10 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/">
-            <Home setToken={setToken} setgameCode={setgameCode}/>
+            <Home setToken={setToken} setgameCode={setgameCode} />
           </Route>
           <Route path="/play">
-            <Play token={token} gameCode={gameCode}/>
+            <Play token={token} gameCode={gameCode} />
           </Route>
         </Switch>
       </BrowserRouter>
