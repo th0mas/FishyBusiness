@@ -7,16 +7,17 @@ import Game from './pages/Game';
 function App() {
   const [token, setToken] = useState();
   const [gameCode, setgameCode] = useState();
+  const [name, setName] = useState();
 
   return (
     <SocketProvider wsUrl={"/socket"} >
       <BrowserRouter>
         <Switch>
           <Route path="/game" >
-            <Game token={token} gameCode={gameCode} />
+            <Game token={token} gameCode={gameCode} name={name} />
           </Route>
           <Route path="/">
-            <Home setToken={setToken} setgameCode={setgameCode} />
+            <Home setToken={setToken} setgameCode={setgameCode} setName={setName} />
           </Route>
         </Switch>
       </BrowserRouter>

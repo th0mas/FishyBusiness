@@ -4,7 +4,7 @@ import useChannel from "../services/channel/useChannel";
 import gameReducer from "../services/gameReducer"
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 
-function Game({ token, gameCode }) {
+function Game({ name, token, gameCode }) {
   const initialState = {
     playing: true,
     players: [],
@@ -38,7 +38,9 @@ function Game({ token, gameCode }) {
   };
 
   const { path } = useRouteMatch();
-  const [state, localDispatch] = useChannel(gameCode, gameReducer, initialState, token);
+  const [state, localDispatch] = useChannel(name, gameCode, gameReducer, initialState, token);
+
+  console.log(state);
 
   return (
     <Switch>

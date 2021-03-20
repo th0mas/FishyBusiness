@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 
 function Lobby({ state, gameCode, updateplayername }) {
-  state.players = state.players.length === 0 ? ['Josh', 'Tim'] : state.players;
   const [name, setName] = useState("player1");
   const history = useHistory();
+
+  console.log(state);
 
   return (
     <div className="lobby h-screen p-10 px-12 bg-gradient-to-r from-blue-500 via-blue-400 to-green-200">
@@ -24,7 +25,7 @@ function Lobby({ state, gameCode, updateplayername }) {
           state.players.map((p, index) => {
             return (
               <div key={index} className="playername">
-                <p className="" >{p}</p>
+                <p className="" >{p.joined}</p>
               </div>
             );
           })
