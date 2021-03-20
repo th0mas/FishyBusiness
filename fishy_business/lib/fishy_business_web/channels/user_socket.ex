@@ -3,6 +3,7 @@ defmodule FishyBusinessWeb.UserSocket do
 
   ## Channels
   # channel "room:*", FishyBusinessWeb.RoomChannel
+  channel "game:*", FishyBusinessWeb.GameChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -16,8 +17,8 @@ defmodule FishyBusinessWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   @impl true
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(%{"client_id" => client_id}, socket, _connect_info) do
+    {:ok, assign(socket, :client_id, client_id)}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -31,5 +32,5 @@ defmodule FishyBusinessWeb.UserSocket do
   #
   # Returning `nil` makes this socket anonymous.
   @impl true
-  def id(_socket), do: nil
+  def id(socket), do: "user_socket:#{socket.assigns.client_id}"
 end

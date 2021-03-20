@@ -8,12 +8,13 @@ defmodule FishyBusinessWeb.RoomController do
 
   action_fallback FishyBusinessWeb.FallbackController
 
+  # TODO: Refractor these
   def index(conn, %{"slug" => slug, "password" => password}) do
     room = Game.find_room_by_slug(slug)
     if Game.check_password(room, password) do
       r = room
         |> Map.from_struct()
-        |> Map.put(:token, create_token(room))
+        |> Map.put(:token, Phoenix.Token.sign(conn, "room", room.id))
 
       render(conn, "join.json", room: r)
     else
@@ -27,7 +28,7 @@ defmodule FishyBusinessWeb.RoomController do
     if Game.check_password(room, "") do
       r = room
         |> Map.from_struct()
-        |> Map.put(:token, create_token(room))
+        |> Map.put(:token, Phoenix.Token.sign(conn, "room", room.id))
 
       render(conn, "join.json", room: r)
     else
@@ -62,9 +63,5 @@ defmodule FishyBusinessWeb.RoomController do
     with {:ok, %Room{}} <- Game.delete_room(room) do
       send_resp(conn, :no_content, "")
     end
-  end
-
-  def create_token(%Room{} = room) do
-    Phoenix.Token.sign(FishyBusinessWeb.Endpoint, "room", room.id)
   end
 end
