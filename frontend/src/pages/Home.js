@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { requestGameToken, createNewGame } from "../services/api/game";
 
-function Home({ setToken, setgameCode }) {
+function Home({ name, setName, setToken, setgameCode }) {
   const [gameCode, setGameCode] = useState("");
 
   const history = useHistory();
@@ -28,6 +28,10 @@ function Home({ setToken, setgameCode }) {
         alert("please enter a code");
         return;
       }
+      if (name === "") {
+        alert("please enter a name");
+        return;
+      }
       try {
         const token = await requestGameToken(gameCode);
         setToken(token);
@@ -38,11 +42,12 @@ function Home({ setToken, setgameCode }) {
       }
     }
     ,
-    [gameCode, history, setToken, setgameCode]
+    [gameCode, history, name, setToken, setgameCode]
   );
   return (
     <div className="home h-screen p-10 px-12 bg-gradient-to-r from-purple-500 to-blue-500">
       <h1 className="m-4 py-4 text-4xl text-white font-semibold">Fishy business</h1>
+      <input onInput={e => setName(e.target.name)} value={name} className="p-2 m-4 border-2 text-l border-gray-100 rounded-md focus:outline-none focus:ring focus:border-blue-300" placeholder="name" type="text"></input>
       <div className="m-4">
         <button onClick={handleNewGame} className="p-2 text-white text-xl bg-blue-500 rounded-md">start game</button>
       </div>

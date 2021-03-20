@@ -1,13 +1,13 @@
 import { useContext, useReducer, useEffect, useState } from 'react'
 import SocketContext from './socketContext'
 
-const useChannel = (gameCode, reducer, initialState, token) => {
+const useChannel = (name, gameCode, reducer, initialState, token) => {
   const socket = useContext(SocketContext)
   const [state, dispatch] = useReducer(reducer, initialState)
   const [channel, setChannel] = useState()
 
   useEffect(() => {
-    const c = socket.channel(`game:${gameCode}`, { client: 'browser', token: token })
+    const c = socket.channel(`game:${gameCode}`, { name: name, client: 'browser', token: token })
     setChannel(c)
 
     c.onMessage = (event, payload) => {
