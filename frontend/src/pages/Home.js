@@ -21,6 +21,9 @@ function Home({ setToken, setgameCode }) {
             if (gameCode === "") {
                 alert("please enter a code");
                 return;
+            } else {
+                requestGameToken(gameCode, setToken)
+                setgameCode(gameCode)
             }
             setgameCode(gameCode);
             requestGameToken(gameCode, setToken);

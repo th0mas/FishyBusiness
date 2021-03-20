@@ -8,7 +8,7 @@ function Game({ token, gameCode }) {
         playing: false
     };
 
-    const state = useChannel(gameCode, gameReducer, initialState, token);
+    const { state, localDispatch } = useChannel(gameCode, gameReducer, initialState, token);
 
     return (
         <div>
