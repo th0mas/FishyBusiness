@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 const gameReducer = (state, event) => {
   switch (event.event) {
     case 'playing':
@@ -26,6 +28,8 @@ const gameReducer = (state, event) => {
       return { ...state, me: { ...state.me, money: event.payload } }
     case 'init_game':
       return { ...state, ...event.payload }
+    case 'update_state':
+      return _.merge(state, event.payload)
     default:
       return state
   }
