@@ -22,7 +22,13 @@ const useChannel = (gameCode, reducer, initialState, token) => {
     }
   }, [gameCode, socket, token])
 
-  return state
+  const localDispatch = (event, payload) => {
+    channel.push(event, payload)
+    dispatch({event, payload})
+
+  }
+
+  return [state, localDispatch]
 }
 
 
