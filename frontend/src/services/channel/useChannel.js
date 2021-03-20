@@ -1,12 +1,12 @@
 import { useContext, useReducer, useEffect } from 'react'
-import SocketContext from './sockets/socketContext'
+import SocketContext from './socketContext'
 
-const useChannel = (channelTopic, reducer, initialState) => {
+const useChannel = (gameCode, reducer, initialState, token) => {
   const socket = useContext(SocketContext)
   const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    const channel = socket.channel(channelTopic, { client: 'browser' })
+    const channel = socket.channel(gameCode, { client: 'browser', token: token })
 
     channel.onMessage = (event, payload) => {
       dispatch({ event, payload })
@@ -20,7 +20,7 @@ const useChannel = (channelTopic, reducer, initialState) => {
     return () => {
       channel.leave()
     }
-  }, [channelTopic])
+  }, [gameCode])
 
   return state
 }
