@@ -6,17 +6,17 @@ const useChannel = (channelTopic, reducer, initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    const channel = socket.channel(channelTopic, {client: 'browser'}) 
-    
+    const channel = socket.channel(channelTopic, { client: 'browser' })
+
     channel.onMessage = (event, payload) => {
       dispatch({ event, payload })
       return payload
     }
 
     channel.join()
-      .receive("ok", ({messages}) =>  console.log('successfully joined channel', messages || ''))
-      .receive("error", ({reason}) => console.error('failed to join channel', reason))
-    
+      .receive("ok", ({ messages }) => console.log('successfully joined channel', messages || ''))
+      .receive("error", ({ reason }) => console.error('failed to join channel', reason))
+
     return () => {
       channel.leave()
     }
