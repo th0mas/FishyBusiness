@@ -1,6 +1,11 @@
 function Region({ index, regionState }) {
+
+  const handlefish = () => {
+
+  }
+
   return (
-    <div className="region flex flex-col justify-between m-2 p-2 border-2 rounded-md border-blue-400">
+    <div className="region flex w-full flex-col justify-between m-2 p-2 border-2 rounded-md border-blue-400">
       <div className="flex-1">
         <h1 className="font-semibold">Region: {index + 1}</h1>
       </div>

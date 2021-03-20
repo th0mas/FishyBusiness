@@ -9,17 +9,13 @@ function Play({ state }) {
 
   return (
     <div className="play">
-        <Navbar me={state.me} setShow={setShowShop} />
-        {showShop &&
-          <Shop setShow={setShowShop} />
-        }
-      <h1>Play</h1>
-      {
-        regions
+      <Navbar me={state.me} setShow={setShowShop} />
+      {showShop &&
+        <Shop setShow={setShowShop} />
       }
+      <div className="flex">{regions}</div>
     </div>
   );
 }
 
 export default Play
-  
