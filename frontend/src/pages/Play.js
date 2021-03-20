@@ -10,7 +10,7 @@ function Play({ state }) {
 
   return (
     <div className="play">
-      <Navbar me={state.me} setShowShop={setShowShop} setShowItems={setShowItems}/>
+      <Navbar me={state.me} setShowShop={setShowShop} setShowItems={setShowItems} />
       {showShop &&
         <SlideWindow title="Shop" setShow={setShowShop} me={state.me} />
       }

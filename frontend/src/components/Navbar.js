@@ -9,7 +9,7 @@ const Navbar = ({ me, setShowShop, setShowItems }) => {
           <div className="flex items-center justify-between h-11">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <img className="h-8 w-8" src={logo} alt="fish"/>
+                <img className="h-8 w-8" src={logo} alt="fish" />
               </div>
               <div className="md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
@@ -18,12 +18,12 @@ const Navbar = ({ me, setShowShop, setShowItems }) => {
                 </div>
               </div>
             </div>
-              <div className="md:block">
-                <div className="flex items-center md:ml-6">
+            <div className="md:block">
+              <div className="flex items-center md:ml-6">
                 <button onClick={() => setShowItems(true)} className="text-gray-300 px-3 py-2 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Items</button>
-                  <button onClick={() => setShowShop(true)} className="text-gray-300 px-3 py-2 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Shop</button>
-                </div>
+                <button onClick={() => setShowShop(true)} className="text-gray-300 px-3 py-2 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Shop</button>
               </div>
+            </div>
           </div>
         </div>
       </nav>

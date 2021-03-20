@@ -9,11 +9,11 @@ function Game({ name, token, gameCode }) {
   const initialState = {
     playing: true,
     players: [],
-    regions:[  {
-        stock: 1000,
-        types: ['piss', 'hake'],
-        active: []
-      },
+    regions: [{
+      stock: 1000,
+      types: ['piss', 'hake'],
+      active: []
+    },
     ],
     me: {
       name: "player",
