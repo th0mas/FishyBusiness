@@ -14,9 +14,11 @@ defmodule FishyBusiness.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: FishyBusiness.PubSub},
       # Start the Endpoint (http/https)
-      FishyBusinessWeb.Endpoint
+      FishyBusinessWeb.Endpoint,
       # Start a worker by calling: FishyBusiness.Worker.start_link(arg)
-      # {FishyBusiness.Worker, arg}
+      # {FishyBusiness.Worker, arg},
+
+      FishyBusinessWeb.Presence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
