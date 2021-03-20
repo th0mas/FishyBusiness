@@ -44,14 +44,14 @@ function Game({ name, token, gameCode }) {
 
   return (
     <dispatchContext.Provider value={localDispatch}>
-    <Switch>
-      <Route path={`${path}/play`}>
-        <Play state={state} />
-      </Route>
-      <Route path={`${path}`}>
-        <Lobby state={state} gameCode={gameCode} updateplayername={(name) => { localDispatch("name-change", name); }} />
-      </Route>
-    </Switch>
+      <Switch>
+        <Route path={`${path}/play`}>
+          <Play state={state} />
+        </Route>
+        <Route path={`${path}`}>
+          <Lobby state={state} gameCode={gameCode} updateplayername={(name) => { localDispatch("name-change", name); }} />
+        </Route>
+      </Switch>
     </dispatchContext.Provider>
   );
 }
