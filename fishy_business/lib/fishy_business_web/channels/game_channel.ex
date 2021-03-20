@@ -16,6 +16,7 @@ defmodule FishyBusinessWeb.GameChannel do
         s = socket
         |> assign(:game_id, game.id)
         |> assign(:client_id, game_slug <> "_" <> name)
+        |> assign(:name, name)
         {:ok, s}
       {:error, _} -> :error
     end
@@ -43,7 +44,8 @@ defmodule FishyBusinessWeb.GameChannel do
 
   def handle_info(:after_join, socket) do
     {:ok, _} = Presence.track(socket, socket.assigns.client_id, %{
-      joined: inspect(System.system_time(:second))
+      joined: inspect(System.system_time(:second)),
+      name: socket.assigns.name
     })
 
     push(socket, "presence_state", Presence.list(socket))
