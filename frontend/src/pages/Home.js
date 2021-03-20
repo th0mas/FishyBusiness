@@ -10,7 +10,7 @@ function Home({ setToken, setgameCode }) {
   const handleNewGame = useCallback(
     async () => {
       try {
-        let { slug } = createNewGame('Default Game', '');
+        let { slug } = await createNewGame('Default Game', '');
         let token = await requestGameToken(slug);
         setToken(token);
         setgameCode(slug);
