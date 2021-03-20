@@ -26,7 +26,6 @@ defmodule FishyBusinessWeb.RoomController do
 
     case Game.find_room_by_slug(slug) do
       %Room{} = room ->
-        Logger.log(:info, "actual pass" <> room.password)
         if Game.check_password(room, "") do
         r = room
           |> Map.from_struct()
