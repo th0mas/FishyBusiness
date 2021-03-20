@@ -1,7 +1,7 @@
 const gameReducer = (state, event) => {
-  switch (event) {
+  switch (event.event) {
     case 'playing':
-      return { ...state, playing: true }
+      return { ...state, playing: event.payload }
     case 'name-change':
       return { ...state, me: { ...state.me, name: event.payload } }
     default:

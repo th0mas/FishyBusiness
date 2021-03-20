@@ -22,9 +22,9 @@ function Game({ token, gameCode }) {
         state.playing ?
           <Play state={state} />
           :
-          <Lobby state={state} gameCode={gameCode} updateplayername={(name) => { localDispatch("name-change", name); }} />
+          <Lobby state={state} gameCode={gameCode} startgame={() => { localDispatch('playing', true) }} updateplayername={(name) => { localDispatch("name-change", name); }} />
       }
-    </div>
+    </div >
   );
 }
 

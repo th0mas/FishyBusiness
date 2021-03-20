@@ -28,6 +28,7 @@ const createNewGame = async (name, password) => {
     headers: headers,
     body: body
   });
+
   if (res.ok) {
     const response = await res.json();
     return response.data;
