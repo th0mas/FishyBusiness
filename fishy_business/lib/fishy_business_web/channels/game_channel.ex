@@ -17,6 +17,10 @@ defmodule FishyBusinessWeb.GameChannel do
 
   # Define special cases now
 
+  def handle_in("start_game", _, socket) do
+    {:noreply, socket}
+  end
+
 
   # Default handler - if in doubt just push to clients
   def handle_in(event, payload, socket) do
