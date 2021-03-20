@@ -28,8 +28,12 @@ const createNewGame = async (name, password) => {
     headers: headers,
     body: body
   });
-  const response = await res.json();
-  return response.data();
+  if (res.ok) {
+    const response = await res.json();
+    return response.data;
+  } else {
+    throw Error();
+  }
 }
 
 export { requestGameToken, createNewGame };
