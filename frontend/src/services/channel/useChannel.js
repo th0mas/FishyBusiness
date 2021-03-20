@@ -25,8 +25,6 @@ const useChannel = (gameCode, reducer, initialState, token) => {
   }, [gameCode, socket, token]);
 
   const localDispatch = (event, payload) => {
-    const channel = socket.channel(gameCode, { client: 'browser', token: token });
-
     channel.push(event, payload);
     dispatch({ event, payload });
   }
