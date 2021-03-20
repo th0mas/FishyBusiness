@@ -1,9 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useHistory } from "react-router";
 import dispatchContext from "../services/dispatchContext";
 
 function Lobby({ state, gameCode, updateplayername }) {
-  const [name, setName] = useState("player1");
   const history = useHistory();
 
   let dispatch = useContext(dispatchContext)
