@@ -22,6 +22,8 @@ function Home({ setToken, setgameCode }) {
                 alert("please enter a code");
                 return;
             }
+            setgameCode(gameCode);
+            requestGameToken(gameCode, setToken);
             history.push('/game');
         }
         ,

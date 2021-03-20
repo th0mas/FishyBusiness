@@ -7,19 +7,20 @@ const useChannel = (gameCode, reducer, initialState, token) => {
   const [channel, setChannel] = useState()
 
   useEffect(() => {
-    setChannel(socket.channel(gameCode, { client: 'browser', token: token }))
+    const c = socket.channel(gameCode, { client: 'browser', token: token })
+    setChannel(c)
 
-    channel.onMessage = (event, payload) => {
+    c.onMessage = (event, payload) => {
       dispatch({ event, payload })
       return payload
     }
 
-    channel.join()
+    c.join()
       .receive("ok", ({ messages }) => console.log('successfully joined channel', messages || ''))
       .receive("error", ({ reason }) => console.error('failed to join channel', reason))
 
     return () => {
-      channel.leave()
+      c.leave()
     }
   }, [gameCode, socket, token])
 
