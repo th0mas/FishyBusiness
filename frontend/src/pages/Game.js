@@ -2,11 +2,22 @@ import Lobby from "./Lobby";
 import Play from "./Play";
 import useChannel from "../services/channel/useChannel";
 import gameReducer from "../services/gameReducer"
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 
 function Game({ token, gameCode }) {
   const initialState = {
     playing: false,
     players: [],
+    regions: [
+      {
+        stock: 1000,
+        types: ['carp', 'hake']
+      },
+      {
+        stock: 500,
+        types: ['cod', 'hake']
+      }
+    ],
     me: {
       name: "player",
       money: 0,
@@ -14,17 +25,19 @@ function Game({ token, gameCode }) {
     },
   };
 
+  const { path } = useRouteMatch();
+
   const [state, localDispatch] = useChannel(gameCode, gameReducer, initialState, token);
 
   return (
-    <div>
-      {
-        state.playing ?
-          <Play state={state} />
-          :
-          <Lobby state={state} gameCode={gameCode} startgame={() => { localDispatch('playing', true) }} updateplayername={(name) => { localDispatch("name-change", name); }} />
-      }
-    </div >
+    <Switch>
+      <Route path={`${path}/play`}>
+        <Play state={state} />
+      </Route>
+      <Route path={`${path}`}>
+        <Lobby state={state} gameCode={gameCode} updateplayername={(name) => { localDispatch("name-change", name); }} />
+      </Route>
+    </Switch>
   );
 }
 
