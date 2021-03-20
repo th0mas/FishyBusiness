@@ -1,7 +1,7 @@
 const gameReducer = (state, event) => {
   switch (event) {
-    case 'fish':
-      return { ...state, noOfFish: 10 }
+    case 'playing':
+      return { ...state, playing: true }
     default:
       return state
   }

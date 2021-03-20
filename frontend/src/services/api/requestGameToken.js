@@ -1,5 +1,5 @@
 const requestGameToken = (gameName, setToken) => {
-  fetch(`https://localhost:3000/api/?token=${gameName}`)
+  fetch(`https://localhost:4000/api/?token=${gameName}`)
     .then(response => response.json())
     .then(data => setToken(data.token))
 }
