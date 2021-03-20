@@ -11,12 +11,24 @@ function Game({ token, gameCode }) {
     regions: [
       {
         stock: 1000,
-        types: ['carp', 'hake']
+        types: ['carp']
       },
       {
         stock: 500,
         types: ['cod', 'hake']
-      }
+      },
+      {
+        stock: 120,
+        types: ['whale']
+      },
+      {
+        stock: 600,
+        types: ['cod', 'hake']
+      },
+      {
+        stock: 1000,
+        types: ['piss', 'hake']
+      },
     ],
     me: {
       name: "player",
