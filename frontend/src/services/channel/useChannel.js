@@ -1,24 +1,26 @@
-import { useContext, useReducer, useEffect } from 'react'
+import { useContext, useReducer, useEffect, useState } from 'react'
 import SocketContext from './socketContext'
 
 const useChannel = (gameCode, reducer, initialState, token) => {
-  const socket = useContext(SocketContext);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const socket = useContext(SocketContext)
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const [channel, setChannel] = useState()
 
   useEffect(() => {
-    const channel = socket.channel(gameCode, { client: 'browser', token: token });
+    const c = socket.channel(gameCode, { client: 'browser', token: token })
+    setChannel(c)
 
-    channel.onMessage = (event, payload) => {
-      dispatch({ event, payload });
-      return payload;
+    c.onMessage = (event, payload) => {
+      dispatch({ event, payload })
+      return payload
     }
 
-    channel.join()
+    c.join()
       .receive("ok", ({ messages }) => console.log('successfully joined channel', messages || ''))
       .receive("error", ({ reason }) => console.error('failed to join channel', reason));
 
     return () => {
-      channel.leave();
+      c.leave()
     }
   }, [gameCode, socket, token]);
 
