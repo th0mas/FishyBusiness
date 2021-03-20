@@ -30,7 +30,7 @@ function Home({ setToken, setgameCode }) {
       history.push('/game');
     }
     ,
-    [gameCode, history]
+    [gameCode, history, setToken, setgameCode]
   );
   return (
     <div className="home h-screen p-10 px-12 bg-gradient-to-r from-purple-500 to-blue-500">

@@ -9,7 +9,7 @@ const SocketProvider = ({ wsUrl, options, children }) => {
   useEffect(() => { socket.connect() }, [options, wsUrl]);
   return (
     <SocketContext.Provider value={socket}>
-      { children}
+      {children}
     </SocketContext.Provider>
   );
 }
