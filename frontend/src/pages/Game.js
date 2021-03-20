@@ -5,7 +5,7 @@ import gameReducer from "../services/gameReducer"
 
 function Game({ token, gameCode }) {
   const initialState = {
-    playing: false,
+    playing: true,
     players: [],
     me: {
       name: "player",
@@ -20,9 +20,7 @@ function Game({ token, gameCode }) {
         state.playing ?
           <Play state={state} />
           :
-          <Lobby
-            state={state} updateplayername={(name) => { localDispatch("name-change", name); }}
-          />
+          <Lobby state={state} updateplayername={(name) => { localDispatch("name-change", name); }} />
       }
     </div>
   );
