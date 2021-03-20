@@ -8,10 +8,15 @@ function Home({ setToken, setgameCode }) {
   const history = useHistory();
 
   const handleNewGame = useCallback(
-    () => {
-      requestGameToken(gameCode, setToken);
-      setgameCode(gameCode);
-      history.push('/game');
+    async () => {
+      try {
+        const token = await requestGameToken(gameCode);
+        setToken(token);
+        setgameCode(gameCode);
+        history.push('/game');
+      } catch (e) {
+        throw e;
+      }
     },
     [gameCode, history, setToken, setgameCode]
   );
