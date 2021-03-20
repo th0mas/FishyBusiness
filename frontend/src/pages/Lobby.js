@@ -8,8 +8,8 @@ function Lobby({ state, updateplayername }) {
     <div className="lobby">
       <h1 className="">lobby</h1>
       <div className="playername">
-        <input onChange={(e) => setName(e.target.value)} className="" value={name} />
-        <button onClick={() => updateplayername(name)}>Change name</button>
+        <input className="border-2 p-1 mr-1 rounded-md border-blue-300" onChange={(e) => setName(e.target.value)} value={name} />
+        <button className="border-2 p-1 rounded-md border-indigo-300" onClick={() => updateplayername(name)}>set name</button>
       </div>
       <div className="players">
         <h3>opponents:</h3>
