@@ -9,6 +9,11 @@ function Region({ index, regionState }) {
       <div className="flex flex-col justify-items-stretch">
         <div className="flex-1">
           <h1 className="font-semibold">Region: {index + 1}</h1>
+          <p>Players here: </p>
+          {
+            regionState.active.map((value, index) => <p key={index}>{value}</p>)
+          }
+          <br />
           <p>Stock: {regionState.stock}</p>
           {
             regionState.types.map((value, index) => <p key={index}>{value}</p>)
