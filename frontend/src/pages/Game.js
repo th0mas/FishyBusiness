@@ -40,8 +40,6 @@ function Game({ name, token, gameCode }) {
   const { path } = useRouteMatch();
   const [state, localDispatch] = useChannel(name, gameCode, gameReducer, initialState, token);
 
-  console.log(state);
-
   return (
     <Switch>
       <Route path={`${path}/play`}>

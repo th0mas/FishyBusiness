@@ -6,7 +6,14 @@ const gameReducer = (state, event) => {
     case 'name-change':
       return { ...state, me: { ...state.me, name: event.payload } }
     case 'presence_state':
-      return { ...state, players: event.payload.test.metas }
+      let players = [];
+      for (let key in event.payload) {
+        players.push(event.payload[key].metas);
+      }
+      console.log(players)
+      return {
+        ...state, players: players
+      }
     default:
       return state
   }

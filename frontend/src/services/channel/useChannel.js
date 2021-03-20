@@ -24,7 +24,7 @@ const useChannel = (name, gameCode, reducer, initialState, token) => {
     return () => {
       c.leave()
     }
-  }, [gameCode, socket, token]);
+  }, [gameCode, name, socket, token]);
 
   const localDispatch = (event, payload) => {
     channel.push(event, payload);
