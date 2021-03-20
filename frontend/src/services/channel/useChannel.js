@@ -4,11 +4,11 @@ import SocketContext from './socketContext'
 const useChannel = (gameCode, reducer, initialState, token) => {
   const socket = useContext(SocketContext)
   const [state, dispatch] = useReducer(reducer, initialState)
-  //const [channel, setChannel] = useState()
+  const [channel, setChannel] = useState()
 
   useEffect(() => {
     const c = socket.channel(`game:${gameCode}`, { client: 'browser', token: token })
-    //setChannel(c)
+    setChannel(c)
 
     c.onMessage = (event, payload) => {
       dispatch({ event, payload })
@@ -27,7 +27,7 @@ const useChannel = (gameCode, reducer, initialState, token) => {
   }, [gameCode, socket, token]);
 
   const localDispatch = (event, payload) => {
-    //channel.push(event, payload);
+    channel.push(event, payload);
     dispatch({ event, payload });
   }
 
