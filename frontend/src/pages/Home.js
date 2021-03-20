@@ -17,17 +17,19 @@ function Home({ setToken, setgameCode }) {
   );
 
   const handleJoinGame = useCallback(
-    () => {
+    async () => {
       if (gameCode === "") {
         alert("please enter a code");
         return;
-      } else {
-        requestGameToken(gameCode, setToken)
-        setgameCode(gameCode)
       }
-      setgameCode(gameCode);
-      requestGameToken(gameCode, setToken);
-      history.push('/game');
+      try {
+        const token = await requestGameToken(gameCode, setToken);
+        setToken(token);
+        setgameCode(gameCode)
+        history.push('/game');
+      } catch (e) {
+        alert("inlvaid code");
+      }
     }
     ,
     [gameCode, history, setToken, setgameCode]
