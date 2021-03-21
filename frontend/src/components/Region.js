@@ -8,27 +8,45 @@ function Region({ index, regionState, gameState, me }) {
   let dispatch = useContext(dispatchContext);
   const [error, setError] = useState(false);
 
+  const updateItems = (item, newItems, currItem, newRegions, region) => {
+    if (item.region === region) {
+      currItem.region.filter(i => i !== region)
+
+      currItem.count -= 1
+      newRegions[index].active = newRegions[index].active.filter(player => player !== `${me.name} - ${currItem.name} (${currItem.count + 1})`)
+    } else {
+      // let oldRegion = currItem.region
+      currItem.region.push(region)
+      currItem.count -= 1
+      newRegions[index].active.push(`${me.name} - ${currItem.name} (${currItem.count + 1})`)
+      // if (oldRegion.length > 0) {
+      //   newRegions[oldRegion].active = newRegions[oldRegion].active.filter(player => player !== `${me.name} - ${currItem.name} (${currItem.count + 1})`)
+      //}
+    }
+
+    dispatch("items_update", newItems)
+    dispatch("update_region_active", { regions: newRegions })
+
+  }
+
   const handleFish = (item, region) => {
     let newItems = [...me.items]
     let currItem = newItems.find(i => i === item)
 
     let newRegions = [...gameState.regions]
+    console.log(newRegions)
 
-    if (item.region === region) {
-      currItem.region = null
-      newRegions[index].active = newRegions[index].active.filter(player => player !== `${me.name} - ${currItem.name}`)
-      console.log(newRegions[index].active)
-    } else {
-      let oldRegion = currItem.region
-      currItem.region = region
-      newRegions[index].active.push(`${me.name} - ${currItem.name}`)
-      if (oldRegion !== null) {
-        newRegions[oldRegion].active = newRegions[oldRegion].active.filter(player => player !== `${me.name} - ${currItem.name}`)
-      }
+    if (currItem.count >= 1) {
+      updateItems(item, newItems, currItem, newRegions, region)
+    } else if (currItem.count == 0 ) {
+      console.log(currItem.region)
+      let oldRegion = currItem.region.splice(0, 1)
+      currItem.count += 1
+      console.log(oldRegion)
+      newRegions[oldRegion].active = newRegions[oldRegion].active.filter(player => player !== `${me.name} - ${currItem.name} (${currItem.count + 1})`)
+      updateItems(item, newItems, currItem, newRegions, region)
     }
 
-    dispatch("items_update", newItems)
-    dispatch("update_region_active", { regions: newRegions })
 
   }
 

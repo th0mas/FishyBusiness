@@ -9,7 +9,14 @@ import Error from './Error';
 const addItem = (me, item, dispatch, setError) => {
   if (me.money >= item.price) {
     let newItems = [...me.items]
-    newItems.push(item)
+    let currItem = newItems.filter(i => i.name === item.name)
+    
+    if (currItem.length > 0) {
+      currItem[0].count = currItem[0].count + 1
+    } else {  
+      item.count += 1
+      newItems.push(item)
+    }
     
     dispatch("money_update", (me.money - item.price).toString()) //pls dont ask I dont know either
     dispatch("items_update", newItems)
@@ -36,7 +43,7 @@ const SlideItem = ({ item, me, shop }) => {
             <p className="text-grey-darker text-base">{item.description}</p>
             <p className="text-grey-darker text-base">rate: {item.rate}</p>
           </div>
-          {shop &&
+          {shop ?
             <div className="flex justify-between">
               <div className="flex items-center">
                 <p>£{item.price}</p>
@@ -44,6 +51,11 @@ const SlideItem = ({ item, me, shop }) => {
               <div className="flex items-center justify-end">
                 <button onClick={() => addItem(me, item, dispatch, setError)} className="right-0 bg-green-500 text-white px-3 py-2 hover:bg-green-800 hover:text-white rounded-md text-sm font-medium">Buy</button>
               </div>
+            </div> :
+            <div className="flex justify-between">
+              <div className="flex items-center">
+                <p>Count: {item.count}</p>
+              </div> 
             </div>
           }
         </div>
