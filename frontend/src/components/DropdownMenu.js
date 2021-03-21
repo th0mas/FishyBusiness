@@ -1,13 +1,13 @@
-const DropdownMenu = ({ gameState }) => {
+const DropdownMenu = ({ gameState, handleClick }) => {
   return (
-    <div className="group inline-block">
+    <div className="group inline-block w-max">
       <button
-        className="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32"
+        className="outline-none cursor-auto focus:outline-none border px-3 py-1 bg-green-400 rounded-sm flex items-center min-w-32"
       >
-        <span className="pr-1 font-semibold flex-1">Fish</span>
+        <span className="pr-1 font-semibold text-white flex-1">Fish</span>
         <span>
           <svg
-            className="fill-current h-4 w-4 transform group-hover:-rotate-180
+            className="fill-current text-white h-4 w-4 transform group-hover:-rotate-180
         transition duration-150 ease-in-out"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -27,7 +27,7 @@ const DropdownMenu = ({ gameState }) => {
         }
         {
           gameState.me.items.map((item, index) =>
-            <li key={index} className="rounded-sm px-3 py-1 hover:bg-gray-100">{item.name}</li>
+            <li key={index} onClick={handleClick} className="rounded-sm cursor-pointer px-3 py-1 hover:bg-gray-100">{item.name}</li>
           )
         }
       </ul>
