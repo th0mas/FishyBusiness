@@ -20,6 +20,7 @@ function StockGraph({ gameState }) {
   return (
     <div className="stockgraph">
       <HorizontalBar
+        width={500}
         data={data}
         options={{
           responsive: true,
@@ -27,7 +28,6 @@ function StockGraph({ gameState }) {
             yAxes: [{
               ticks: {
                 beginAtZero: true,
-                maintainAspectRatio: false
               }
             }]
           }
