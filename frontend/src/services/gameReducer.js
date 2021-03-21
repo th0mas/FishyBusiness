@@ -12,7 +12,7 @@ const gameReducer = (state, event) => {
         players.push(event.payload[key].metas[0]);
       }
       return {
-        ...state, players: players
+        ...state, lobby_players: players
       }
     case 'presence_diff':
       let p = [];
@@ -20,7 +20,7 @@ const gameReducer = (state, event) => {
         p.push(event.payload.joins[key].metas[0]);
       }
       return {
-        ...state, players: (state.players.concat(p))
+        ...state, lobby_players: (state.players.concat(p))
       }
     case 'items_update':
       return { ...state, me: { ...state.me, items: event.payload } }

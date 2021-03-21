@@ -19,7 +19,7 @@ function Lobby({ state, gameCode }) {
       <div className="players m-2 text-lg text-white">
         <h3>players:</h3>
         {
-          state.players.map((p, index) => {
+          state.lobby_players.map((p, index) => {
             console.log(p)
             return (
               <div key={index} className="playername">

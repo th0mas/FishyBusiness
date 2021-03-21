@@ -7,6 +7,8 @@ defmodule FishyBusinessWeb.GameChannel do
   alias FishyBusiness.Game.Room
   alias FishyBusinessWeb.Presence
 
+  intercept ["update_state"]
+
   def join("game:" <> game_slug, %{"token" => token, "name"=>name}, socket) do
     Logger.info("Connected")
     game = Game.find_room_by_slug(game_slug)
@@ -25,6 +27,12 @@ defmodule FishyBusinessWeb.GameChannel do
   def join("game:" <> _game_slug, _params, _socket) do
     Logger.info("No token")
     {:error, %{reason: "No Token/Name"}}
+  end
+
+  def handle_out("update_state", msg, socket) do
+    push(socket, "update_state", Map.put(msg, :me, get_in(msg, [:players, socket.assigns.client_id])))
+
+    {:noreply, socket}
   end
 
   # Define special cases now

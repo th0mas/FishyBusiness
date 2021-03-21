@@ -7,6 +7,7 @@ import dispatchContext from "../services/dispatchContext";
 function Game({ name, token, gameCode }) {
   const initialState = {
     playing: false,
+    lobby_players: [],
     players: [],
     regions: [{
       stock: 1000,
