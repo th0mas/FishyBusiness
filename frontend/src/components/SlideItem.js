@@ -1,6 +1,7 @@
 import Rod from '../images/Rod.png';
 import Net from '../images/Net.png';
 import Trawler from '../images/Trawler.png';
+import Oil from '../images/Oil.png';
 import { useContext, useState } from 'react';
 import dispatchContext from '../services/dispatchContext';
 import Error from './Error';
@@ -19,7 +20,7 @@ const addItem = (me, item, dispatch, setError) => {
 }
 
 const SlideItem = ({ item, me, shop }) => {
-  const imgs = { "Rod": Rod, "Net": Net, "Trawler": Trawler }
+  const imgs = { "Rod": Rod, "Net": Net, "Trawler": Trawler, "Oil": Oil }
   let dispatch = useContext(dispatchContext)
   const [error, setError] = useState(false);
 

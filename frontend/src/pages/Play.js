@@ -20,7 +20,7 @@ function Play({ state }) {
         <SlideWindow title="Items" setShow={setShowItems} me={state.me} />
       }
       <div className="flex">
-        <Leaderboard players={state.players} />
+        <Leaderboard players={state.players} me={state.me} />
       </div>
       <div className="flex">{regions}</div>
       <StockGraph gameState={state} />

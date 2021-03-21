@@ -16,14 +16,14 @@ function Region({ index, regionState, gameState, me }) {
 
     if (item.region === region) {
       currItem.region = null
-      newRegions[index].active = newRegions[index].active.filter(player => player !== me.name)
+      newRegions[index].active = newRegions[index].active.filter(player => player !== `${me.name} - ${currItem.name}`)
       console.log(newRegions[index].active)
     } else {
       let oldRegion = currItem.region
       currItem.region = region
-      newRegions[index].active.push(me.name)
+      newRegions[index].active.push(`${me.name} - ${currItem.name}`)
       if (oldRegion !== null) {
-        newRegions[oldRegion].active = newRegions[oldRegion].active.filter(player => player !== me.name)
+        newRegions[oldRegion].active = newRegions[oldRegion].active.filter(player => player !== `${me.name} - ${currItem.name}`)
       }
     }
 

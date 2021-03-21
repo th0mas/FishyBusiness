@@ -13,8 +13,8 @@ const Navbar = ({ me, setShowShop, setShowItems }) => {
               </div>
               <div className="md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
+                  <p className="text-gray-300 px-3 py-2 text-sm font-bold">{me.name}</p>
                   <p className="text-gray-300 px-3 py-2 text-sm font-medium">£ {me.money}</p>
-                  <p className="text-gray-300 px-3 py-2 text-sm font-medium">bait: {me.bait}</p>
                 </div>
               </div>
             </div>
