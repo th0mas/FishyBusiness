@@ -16,7 +16,7 @@ function Game({ name, token, gameCode }) {
     },
     ],
     me: {
-      regions_fished: [],
+      regions_fished: new Set(),
       name: name,
       money: 15,
       bait: 10,
