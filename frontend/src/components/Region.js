@@ -9,7 +9,7 @@ function Region({ index, regionState, gameState, me }) {
   const handleFish = (item, region) => {
     let newItems = [...me.items]
     let currItem = newItems.find(i => i === item)
-    
+
     let newRegions = [...gameState.regions]
 
     if (item.region === region) {
@@ -20,14 +20,14 @@ function Region({ index, regionState, gameState, me }) {
       let oldRegion = currItem.region
       currItem.region = region
       newRegions[index].active.push(me.name)
-      if (oldRegion != null) {
-        newRegions[oldRegion].active = newRegions[oldRegion].active.filter(player => player != me.name)
+      if (oldRegion !== null) {
+        newRegions[oldRegion].active = newRegions[oldRegion].active.filter(player => player !== me.name)
       }
     }
-    
+
     dispatch("items_update", newItems)
-    dispatch("update_region_active", {regions: newRegions})
-    
+    dispatch("update_region_active", { regions: newRegions })
+
   }
 
   const handleOilSpill = (region) => {
@@ -37,9 +37,9 @@ function Region({ index, regionState, gameState, me }) {
 
       let newItems = [...me.items]
       newItems = newItems.filter(item => item.name !== "Oil Spill")
-      
+
       dispatch("items_update", newItems)
-      dispatch("update_region_active", {regions: newRegions})
+      dispatch("update_region_active", { regions: newRegions })
     }
 
   }
@@ -62,9 +62,9 @@ function Region({ index, regionState, gameState, me }) {
         <div className="flex justify-center">
           <DropdownMenu gameState={gameState} handleClick={handleFish} region={index} />
           <div className="flex">
-          <button onClick={handleOilSpill} className="outline-none hover:bg-gray-600 focus:outline-none border px-3 py-1 rounded-sm bg-gray-500 my-2">
-            <span className="pr-1 font-semibold text-white flex-1">oil spill</span>
-          </button>
+            <button onClick={handleOilSpill} className="outline-none hover:bg-gray-600 focus:outline-none border px-3 py-1 rounded-sm bg-gray-500 my-2">
+              <span className="pr-1 font-semibold text-white flex-1">oil spill</span>
+            </button>
           </div>
         </div>
       </div>
