@@ -14,18 +14,18 @@ function Region({ index, regionState, gameState, me }) {
 
     if (item.region === region) {
       currItem.region = null
-      newRegions[index].active = newRegions[index].active.filter(player => player != me.name)
+      newRegions[index].active = newRegions[index].active.filter(player => player !== me.name)
+      console.log(newRegions[index].active)
     } else {
       let oldRegion = currItem.region
       currItem.region = region
       newRegions[index].active.push(me.name)
       if (oldRegion != null) {
-        newRegions[oldRegion].active = newRegions[index].active.filter(player => player != me.name)
+        newRegions[oldRegion].active = newRegions[oldRegion].active.filter(player => player != me.name)
       }
     }
     
     dispatch("items_update", newItems)
-    
     dispatch("update_region_active", {regions: newRegions})
     
   }
@@ -47,8 +47,7 @@ function Region({ index, regionState, gameState, me }) {
         </div>
         <div className="flex-1">
           <DropdownMenu gameState={gameState} handleClick={handlefish} region={index} />
-          <button className="bg-green-500 w-full text-white my-2" onClick={handlefish}>fish</button>
-          <button className="bg-gray-500 w-full text-white">oil spill</button>
+          <button className="bg-gray-500 my-2 w-full text-white">oil spill</button>
         </div>
       </div>
     </ div>
