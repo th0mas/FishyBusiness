@@ -6,12 +6,17 @@ function Region({ index, regionState, gameState, me }) {
 
   let dispatch = useContext(dispatchContext);
 
-  const handlefish = () => {
-    console.log(gameState.me);
-    console.log(gameState.me.regions_fished.concat(index));
-    dispatch('fish_region', {
-      regions: new Set(gameState.me.regions_fished.concat(index))
-    });
+  const handlefish = (item, region) => {
+    let newItems = [...me.items]
+
+    let currItem = newItems.find(i => i === item)
+    currItem.region = region
+    
+    dispatch("items_update", newItems)
+    let newRegions = [...gameState.regions]
+    newRegions[index].active.push(me.name)
+    dispatch("update_region_active", {regions: newRegions})
+    
   }
 
   return (
@@ -30,7 +35,7 @@ function Region({ index, regionState, gameState, me }) {
           }
         </div>
         <div className="flex-1">
-          <DropdownMenu gameState={gameState} handleClick={handlefish} />
+          <DropdownMenu gameState={gameState} handleClick={handlefish} region={index} />
           <button className="bg-green-500 w-full text-white my-2" onClick={handlefish}>fish</button>
           <button className="bg-gray-500 w-full text-white">oil spill</button>
         </div>

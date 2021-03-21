@@ -2,9 +2,9 @@ import { useState } from "react";
 import SlideItem from "./SlideItem";
 
 const SlideWindow = ({ title, setShow, me}) => {
-  const windowItems = [{name: "Fishing Rod", price: 10, description: "Mild overfishing", img: "Rod"},
-                     {name: "Fishing Net", price: 100, description: "Big overfishing", img: "Net"},
-                     {name: "Trawler", price: 1000, description: "Fish annihilation", img: "Trawler"}]
+  const windowItems = [{name: "Fishing Rod", price: 10, description: "Mild overfishing", img: "Rod", region: null, rate: 10},
+                     {name: "Fishing Net", price: 100, description: "Big overfishing", img: "Net", region: null, rate: 100},
+                     {name: "Trawler", price: 1000, description: "Fish annihilation", img: "Trawler",  region: null, rate: 1000}]
 
   return (
     <div className="fixed inset-0 overflow-hidden">

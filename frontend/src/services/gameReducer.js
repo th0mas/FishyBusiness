@@ -20,7 +20,7 @@ const gameReducer = (state, event) => {
         p.push(event.payload.joins[key].metas[0]);
       }
       return {
-        ...state, lobby_players: (state.players.concat(p))
+        ...state, lobby_players: (state.lobby_players.concat(p))
       }
     case 'items_update':
       return { ...state, me: { ...state.me, items: event.payload } }
@@ -30,6 +30,8 @@ const gameReducer = (state, event) => {
       return { ...state, ...event.payload }
     case 'update_state':
       return Object.assign({}, _.merge(state, event.payload))
+    case 'update_region_active':
+      return {...state, regions: event.payload.regions}
     default:
       return state
   }

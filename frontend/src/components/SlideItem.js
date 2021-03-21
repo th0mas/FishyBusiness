@@ -32,6 +32,7 @@ const SlideItem = ({ item, me, shop}) => {
         <div className="mb-8">
           <div className="text-black font-bold text-xl mb-2">{ item.name }</div>
           <p className="text-grey-darker text-base">{ item.description }</p>
+          <p className="text-grey-darker text-base">rate: {item.rate}</p>
         </div>
         { shop &&
         <div className="flex justify-between">

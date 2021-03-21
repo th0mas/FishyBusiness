@@ -1,4 +1,4 @@
-const DropdownMenu = ({ gameState, handleClick }) => {
+const DropdownMenu = ({ gameState, handleClick, region }) => {
   return (
     <div className="group inline-block w-max">
       <button
@@ -26,7 +26,7 @@ const DropdownMenu = ({ gameState, handleClick }) => {
         }
         {
           gameState.me.items.map((item, index) =>
-            <li key={index} onClick={handleClick} className="rounded-sm cursor-pointer px-3 py-1 hover:bg-gray-100">{item.name}</li>
+            <li key={index} onClick={() => handleClick(item, region)} className="rounded-sm cursor-pointer px-3 py-1 hover:bg-gray-100">{item.name}</li>
           )
         }
       </ul>
