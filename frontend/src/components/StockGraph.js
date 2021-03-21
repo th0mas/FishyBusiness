@@ -1,4 +1,4 @@
-import { Bar } from "react-chartjs-2";
+import { Bar, HorizontalBar } from "react-chartjs-2";
 
 function StockGraph({ gameState }) {
 
@@ -19,14 +19,15 @@ function StockGraph({ gameState }) {
 
   return (
     <div className="stockgraph">
-      <Bar
+      <HorizontalBar
+        width={500}
         data={data}
         options={{
           responsive: true,
           scales: {
             yAxes: [{
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
               }
             }]
           }
