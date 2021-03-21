@@ -44,11 +44,12 @@ defmodule FishyBusiness.Game.Manager do
   end
 
   def init(%{game: game, players: players} = state) do
-    broadcast!(game, "init_game", gen_initial_state(players))
+    current = gen_initial_state(players)
+    broadcast!(game, "init_game", current)
     send(self(), :timed_event)
 
     state = state |>
-      Map.put(:current, @initial_state)
+      Map.put(:current, current)
 
     {:ok, state}
   end
@@ -67,6 +68,7 @@ defmodule FishyBusiness.Game.Manager do
   end
 
   def handle_info({:money_update, %{money: money, client: client}}, %{current: current} = state) do
+    Logger.warn(inspect current)
     updated = put_in(current, [:players, client, :money], money)
     broadcast!(state.game, "update_state", updated)
 
@@ -81,7 +83,6 @@ defmodule FishyBusiness.Game.Manager do
       )
       |> Map.put(:me, @initial_player)
 
-    Logger.warn(inspect i)
     i
   end
 
