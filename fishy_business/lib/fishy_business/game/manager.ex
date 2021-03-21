@@ -45,11 +45,10 @@ defmodule FishyBusiness.Game.Manager do
   def init(%{game: game, players: players} = state) do
     broadcast!(game, "init_game", gen_initial_state(players))
     send(self(), :timed_event)
-    Logger.info("Game manager inited for" <> game)
-
 
     state = state |>
       Map.put(:current, @initial_state)
+
     {:ok, state}
   end
 
@@ -59,14 +58,30 @@ defmodule FishyBusiness.Game.Manager do
     {:noreply, state}
   end
 
-  def gen_initial_state(players) do
-    Logger.info inspect(players)
+  def handle_info({:items_update, %{items: items, client: client}}, %{current: current} = state) do
+    updated = put_in(current, [:players, client, :items], items)
+    broadcast!(state.game, "update_state", updated)
 
-    @initial_state
-    |> Map.put(:players, Enum.map(players,
-      fn {k, v} -> Map.merge(@initial_player, %{name: v |> Map.get(:metas) |> List.first |> Map.get(:name), id: k}) end)
-    )
-    |> Map.put(:me, @initial_player)
+    {:noreply, state |> Map.put(:current, updated)}
+  end
+
+  def handle_info({:money_update, %{money: money, client: client}}, %{current: current} = state) do
+    updated = put_in(current, [:players, client, :money], money)
+    broadcast!(state.game, "update_state", updated)
+
+    {:noreply, state |> Map.put(:current, updated)}
+  end
+
+  def gen_initial_state(players) do
+    i =
+      @initial_state
+      |> Map.put(:players, Enum.reduce(players, %{},
+        fn ({k, v}, res) -> Map.put(res, k, Map.merge(@initial_player, %{name: v |> Map.get(:metas) |> List.first |> Map.get(:name)})) end)
+      )
+      |> Map.put(:me, @initial_player)
+
+    Logger.warn(inspect i)
+    i
   end
 
 

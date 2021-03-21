@@ -30,10 +30,20 @@ defmodule FishyBusinessWeb.GameChannel do
   # Define special cases now
 
   def handle_in("start_game", _, socket) do
-    Game.Supervisor.start_child(name: get_manager_name(socket.topic),
+    Game.Supervisor.start_child(name: get_manager_name(socket),
       game: socket.topic,
       players: Presence.list(socket))
 
+    {:noreply, socket}
+  end
+
+  def handle_in("items_update", payload, socket) do
+    send(get_manager_pid(socket), {:items_update, %{items: payload, client: socket.assigns.client_id}})
+    {:noreply, socket}
+  end
+
+  def handle_in("money_update", payload, socket) do
+    send(get_manager_pid(socket), {:money_update, %{money: payload, client: socket.assigns.client_id}})
     {:noreply, socket}
   end
 
@@ -56,8 +66,14 @@ defmodule FishyBusinessWeb.GameChannel do
     {:noreply, socket}
   end
 
-  def get_manager_name(room) do
-    {:via, Registry, {FishyBusiness.Registry, room}}
+  def get_manager_name(socket) do
+    {:via, Registry, {FishyBusiness.Registry, socket.topic}}
+  end
+
+  def get_manager_pid(socket) do
+    {pid, _ } = Registry.lookup(FishyBusiness.Registry, socket.topic) |> List.first
+
+    pid
   end
 
 end
