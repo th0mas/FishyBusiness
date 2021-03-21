@@ -79,12 +79,6 @@ defmodule FishyBusiness.Game.Manager do
   end
 
   def handle_info(:tick, %{current: %{players: players} = current} = state) do
-    current = Enum.reduce(players, current, fn {_player, v}, c ->
-      Enum.reduce(v[:items], c, fn item, c_1 ->
-        c_1 |> List.insert_at(item["region"]["index"],
-          Map.put(item["region"], :stock, c_1[item["region"]["index"]] - item["region"]["rate"]))
-      end)
-    end)
 
     broadcast!(state.game, "update_state", current)
     Process.send_after(self(), :tick, @tick_interval)
