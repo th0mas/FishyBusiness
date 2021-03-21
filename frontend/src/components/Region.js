@@ -8,13 +8,24 @@ function Region({ index, regionState, gameState, me }) {
 
   const handlefish = (item, region) => {
     let newItems = [...me.items]
-
     let currItem = newItems.find(i => i === item)
-    currItem.region = region
+    
+    let newRegions = [...gameState.regions]
+
+    if (item.region === region) {
+      currItem.region = null
+      newRegions[index].active = newRegions[index].active.filter(player => player != me.name)
+    } else {
+      let oldRegion = currItem.region
+      currItem.region = region
+      newRegions[index].active.push(me.name)
+      if (oldRegion != null) {
+        newRegions[oldRegion].active = newRegions[index].active.filter(player => player != me.name)
+      }
+    }
     
     dispatch("items_update", newItems)
-    let newRegions = [...gameState.regions]
-    newRegions[index].active.push(me.name)
+    
     dispatch("update_region_active", {regions: newRegions})
     
   }
