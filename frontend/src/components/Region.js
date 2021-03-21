@@ -6,7 +6,7 @@ function Region({ index, regionState, gameState, me }) {
 
   let dispatch = useContext(dispatchContext);
 
-  const handlefish = (item, region) => {
+  const handleFish = (item, region) => {
     let newItems = [...me.items]
     let currItem = newItems.find(i => i === item)
     
@@ -30,6 +30,20 @@ function Region({ index, regionState, gameState, me }) {
     
   }
 
+  const handleOilSpill = (region) => {
+    if (me.items.some(item => item.name === "Oil Spill")) {
+      let newRegions = [...gameState.regions]
+      newRegions[index].stock = Math.floor(newRegions[index].stock / 2)
+
+      let newItems = [...me.items]
+      newItems = newItems.filter(item => item.name !== "Oil Spill")
+      
+      dispatch("items_update", newItems)
+      dispatch("update_region_active", {regions: newRegions})
+    }
+
+  }
+
   return (
     <div className="region w-full m-2 p-2 border-2 rounded-md border-blue-400">
       <div className="flex flex-col justify-items-stretch">
@@ -45,9 +59,13 @@ function Region({ index, regionState, gameState, me }) {
             regionState.types.map((value, index) => <p key={index}>{value}</p>)
           }
         </div>
-        <div className="flex-1">
-          <DropdownMenu gameState={gameState} handleClick={handlefish} region={index} />
-          <button className="bg-gray-500 my-2 w-full text-white">oil spill</button>
+        <div className="flex justify-center">
+          <DropdownMenu gameState={gameState} handleClick={handleFish} region={index} />
+          <div className="flex">
+          <button onClick={handleOilSpill} className="outline-none hover:bg-gray-600 focus:outline-none border px-3 py-1 rounded-sm bg-gray-500 my-2">
+            <span className="pr-1 font-semibold text-white flex-1">oil spill</span>
+          </button>
+          </div>
         </div>
       </div>
     </ div>
