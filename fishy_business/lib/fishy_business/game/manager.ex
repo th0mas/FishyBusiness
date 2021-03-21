@@ -16,7 +16,7 @@ defmodule FishyBusiness.Game.Manager do
         active: []
       },
       %{
-        stock: 500,
+        stock: 20,
         types: ["hake", "cod"],
         active: []
       },
@@ -121,14 +121,18 @@ defmodule FishyBusiness.Game.Manager do
   def calculate_tick_items(current_state, user, [item | items]) do
     current_state =
       unless item["region"] == nil do
+        fish_farmed = current_state.regions
+          |> Enum.at(item["region"])
+          |> Map.get("stock")
+          |> get_fish_delta(item["rate"])
         a =
         current_state
-        |> put_in([:regions], List.replace_at(current_state.regions, item["region"],
+          |> put_in([:regions], List.replace_at(current_state.regions, item["region"],
             current_state.regions
-            |> Enum.at(item["region"])
-            |> Map.update!("stock", fn val -> val - item["rate"] end)
+             |> Enum.at(item["region"])
+             |> Map.update!("stock", fn val -> val - fish_farmed end)
           ))
-        |> put_in([:players, user, :money], get_in(current_state, [:players, user, :money]) + item["rate"])
+          |> put_in([:players, user, :money], get_in(current_state, [:players, user, :money]) + fish_farmed)
         a
       else
         current_state
@@ -140,5 +144,10 @@ defmodule FishyBusiness.Game.Manager do
     current_state
   end
 
+  def get_fish_delta(prev_fish, rate) do
+    new_fish = max(prev_fish - rate, 0)
+
+    prev_fish - new_fish
+  end
 
 end
