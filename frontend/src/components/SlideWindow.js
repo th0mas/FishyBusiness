@@ -1,10 +1,10 @@
 import SlideItem from "./SlideItem";
 
-const SlideWindow = ({ title, setShow, me}) => {
-  const windowItems = [{name: "Fishing Rod", price: 10, description: "Mild overfishing", img: "Rod", region: null, rate: 1},
-                     {name: "Fishing Net", price: 100, description: "Big overfishing", img: "Net", region: null, rate: 10},
-                     {name: "Trawler", price: 1000, description: "Fish annihilation", img: "Trawler",  region: null, rate: 100},
-                     {name: "Oil Spill", price: 250, description: "Halves fish stock", img: "Oil",  region: null, rate: "N/A"}]
+const SlideWindow = ({ title, setShow, me }) => {
+  const windowItems = [{ name: "Fishing Rod", price: 10, description: "Mild overfishing", img: "Rod", region: null, rate: 1 },
+  { name: "Fishing Net", price: 100, description: "Big overfishing", img: "Net", region: null, rate: 10 },
+  { name: "Trawler", price: 1000, description: "Fish annihilation", img: "Trawler", region: null, rate: 100 },
+  { name: "Oil Spill", price: 250, description: "Halves fish stock", img: "Oil", region: null, rate: "N/A" }]
 
   return (
     <div className="fixed inset-0 overflow-hidden">
@@ -38,7 +38,7 @@ const SlideWindow = ({ title, setShow, me}) => {
                   {title === "Shop" ? windowItems.map(item => {
                     if (me.items.filter(e => e.name === item.name).length === 0) {
                       return <SlideItem key={item.name} item={item} me={me} shop={true} />
-                    }
+                    } else return null
                   }) : me.items.length === 0 ?
                     <p>No items :(</p> :
                     me.items.map(item => <SlideItem key={item.name} item={item} me={me} shop={false} />)
