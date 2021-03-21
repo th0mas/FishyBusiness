@@ -15,10 +15,8 @@ defmodule FishyBusiness.Game.Supervisor do
 
   def start_child(args) do
     spec = {Manager, args}
-    Logger.info("Starting process...")
     proc = DynamicSupervisor.start_child(__MODULE__, spec)
 
-    Logger.info(inspect proc)
   end
 
   def get_name(room) do

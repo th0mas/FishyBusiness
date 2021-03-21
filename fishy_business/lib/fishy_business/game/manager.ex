@@ -132,7 +132,7 @@ defmodule FishyBusiness.Game.Manager do
              |> Enum.at(item["region"])
              |> Map.update!("stock", fn val -> val - fish_farmed end)
           ))
-          |> put_in([:players, user, :money], get_in(current_state, [:players, user, :money]) + fish_farmed)
+          |> put_in([:players, user, :money], Integer.to_string((String.to_integer(get_in(current_state, [:players, user, :money]))) + fish_farmed))
         a
       else
         current_state
