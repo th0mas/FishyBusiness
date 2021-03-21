@@ -22,9 +22,9 @@ const gameReducer = (state, event) => {
       return {
         ...state, players: (state.players.concat(p))
       }
-    case 'items-update':
+    case 'items_update':
       return { ...state, me: { ...state.me, items: event.payload } }
-    case 'money-update':
+    case 'money_update':
       return { ...state, me: { ...state.me, money: event.payload } }
     case 'init_game':
       return { ...state, ...event.payload }

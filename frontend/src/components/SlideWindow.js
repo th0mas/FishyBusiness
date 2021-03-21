@@ -1,8 +1,10 @@
+import { useState } from "react";
 import SlideItem from "./SlideItem";
 
 const SlideWindow = ({ title, setShow, me}) => {
   const windowItems = [{name: "Fishing Rod", price: 10, description: "Mild overfishing", img: "Rod"},
-                     {name: "Fishing Net", price: 100, description: "Big overfishing", img: "Net"}]
+                     {name: "Fishing Net", price: 100, description: "Big overfishing", img: "Net"},
+                     {name: "Trawler", price: 1000, description: "Fish annihilation", img: "Trawler"}]
 
   return (
     <div className="fixed inset-0 overflow-hidden">
@@ -19,10 +21,17 @@ const SlideWindow = ({ title, setShow, me}) => {
               </button>
             </div>
             <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
-              <div className="px-4 sm:px-6">
-                <h2 id="slide-over-heading" className="text-lg font-medium text-gray-900">
-                  { title }
-                </h2>
+              <div className="flex items-center justify-between px-6">
+                <div>
+                  <h2 id="slide-over-heading" className="text-lg font-medium text-gray-900">
+                    { title }
+                  </h2>
+                </div>
+                <div>
+                  {title === "Shop" &&
+                    <p>£{me.money}</p>
+                  }
+                </div>
               </div>
               <div className="mt-6 relative flex-1 px-4 sm:px-6">
                 <div className="absolute inset-0 px-4 sm:px-6">

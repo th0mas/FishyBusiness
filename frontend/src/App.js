@@ -17,7 +17,7 @@ function App() {
             <Game token={token} gameCode={gameCode} name={name} />
           </Route>
           <Route path="/">
-            <Home setToken={setToken} setgameCode={setgameCode} name={name} setName={setName} />
+            <Home setToken={setToken} setgameCode={setgameCode} name={name} setName={setName}/>
           </Route>
         </Switch>
       </BrowserRouter>

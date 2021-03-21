@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Leaderboard from "../components/Leaderboard";
 import Navbar from "../components/Navbar";
 import Region from "../components/Region";
 import SlideWindow from "../components/SlideWindow";
@@ -17,6 +18,9 @@ function Play({ state }) {
       {showItems &&
         <SlideWindow title="Items" setShow={setShowItems} me={state.me} />
       }
+      <div className="flex">
+        <Leaderboard players={state.players}/>
+      </div>
       <div className="flex">{regions}</div>
     </div>
   );
