@@ -1,7 +1,7 @@
 import SlideItem from "./SlideItem";
 
 const SlideWindow = ({ title, setShow, me}) => {
-  const windowItems = [{name: "Fishing Rod", price: 1, description: "Mild overfishing", img: "Rod", region: null, rate: 1},
+  const windowItems = [{name: "Fishing Rod", price: 10, description: "Mild overfishing", img: "Rod", region: null, rate: 1},
                      {name: "Fishing Net", price: 100, description: "Big overfishing", img: "Net", region: null, rate: 10},
                      {name: "Trawler", price: 1000, description: "Fish annihilation", img: "Trawler",  region: null, rate: 100},
                      {name: "Oil Spill", price: 250, description: "Halves fish stock", img: "Oil",  region: null, rate: "N/A"}]
