@@ -1,5 +1,4 @@
 const LeaderboardEntry = ({ player }) => {
-  console.log(player)
   return (
     <tr className="bg-white border-4 border-gray-200">
     <td className="px-16 py-2">

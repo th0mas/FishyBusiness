@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import dispatchContext from "../services/dispatchContext";
+import DropdownMenu from "./DropdownMenu";
 
 function Region({ index, regionState, gameState }) {
 
@@ -27,6 +28,7 @@ function Region({ index, regionState, gameState }) {
           }
         </div>
         <div className="flex-1">
+          <DropdownMenu />
           <button className="bg-green-500 w-full text-white my-2" onClick={handlefish}>fish</button>
           <button className="bg-gray-500 w-full text-white">oil spill</button>
         </div>

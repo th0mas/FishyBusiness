@@ -1,7 +1,13 @@
 import LeaderboardEntry from './LeaderboardEntry';
 
 const Leaderboard = ({ players }) => {
-  let orderedPlayers = [...players].sort((a, b) => (a.money < b.money) ? 1 : -1)
+  const orderedPlayers = []
+
+  for (const player in players) {
+    orderedPlayers.push(players[player])
+  }
+
+  orderedPlayers.sort((a, b) => (a.money < b.money) ? 1 : -1)
 
   return (
     <div>
