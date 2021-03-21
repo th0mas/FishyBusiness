@@ -7,7 +7,7 @@ import SocketContext from './socketContext'
 const SocketProvider = ({ wsUrl, options, children }) => {
   const [socket, setSocket] = useState()
   useEffect(() => {
-    const socket = new Socket('ws://localhost:4000/socket');
+    const socket = new Socket('ws://' + (process.env['NODE_ENV'] === 'production' ? 'tomhaines.uk' : 'localhost:4000') + '/socket');
     socket.connect();
     setSocket(socket);
   }, [])

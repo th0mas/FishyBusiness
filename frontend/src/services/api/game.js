@@ -1,4 +1,4 @@
-const url = "http://localhost:4000/api/rooms/"
+const url = process.env['NODE_ENV'] === 'production' ? 'https://fb.tomhaines.uk/api/rooms' : "http://localhost:4000/api/rooms/"
 
 const headers = {
   'Accept': 'application/json',
