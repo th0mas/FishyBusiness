@@ -31,7 +31,7 @@ const gameReducer = (state, event) => {
     case 'update_state':
       return Object.assign({}, _.merge(state, event.payload))
     case 'update_region_active':
-      return {...state, regions: event.payload.regions}
+      return { ...state, regions: event.payload.regions }
     default:
       return state
   }
