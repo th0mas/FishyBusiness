@@ -1,5 +1,5 @@
 const LeaderboardEntry = ({ player, me }) => {
-  let bg = me ? "bg-gray-100" : "bg-white"
+  let bg = me ? "bg-gray-200" : "bg-white"
 
   return (
     <tr className={`${bg} border-4 border-gray-200`}>
