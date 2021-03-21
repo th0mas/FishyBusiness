@@ -29,7 +29,7 @@ const gameReducer = (state, event) => {
     case 'init_game':
       return { ...state, ...event.payload }
     case 'update_state':
-      return _.merge(state, event.payload)
+      return Object.assign({}, _.merge(state, event.payload))
     default:
       return state
   }
