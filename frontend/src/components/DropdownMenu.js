@@ -7,8 +7,7 @@ const DropdownMenu = ({ gameState, handleClick }) => {
         <span className="pr-1 font-semibold text-white flex-1">Fish</span>
         <span>
           <svg
-            className="fill-current text-white h-4 w-4 transform group-hover:-rotate-180
-        transition duration-150 ease-in-out"
+            className="fill-current text-white h-4 w-4"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >

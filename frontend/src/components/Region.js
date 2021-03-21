@@ -2,7 +2,7 @@ import { useContext } from "react";
 import dispatchContext from "../services/dispatchContext";
 import DropdownMenu from "./DropdownMenu";
 
-function Region({ index, regionState, gameState }) {
+function Region({ index, regionState, gameState, me }) {
 
   let dispatch = useContext(dispatchContext);
 

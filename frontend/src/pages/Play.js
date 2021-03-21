@@ -7,7 +7,7 @@ import SlideWindow from "../components/SlideWindow";
 function Play({ state }) {
   const [showShop, setShowShop] = useState(false);
   const [showItems, setShowItems] = useState(false);
-  const regions = state.regions.map((_, index) => <Region key={index} gameState={state} index={index} regionState={state.regions[index]} />)
+  const regions = state.regions.map((_, index) => <Region key={index} gameState={state} index={index} regionState={state.regions[index]} me={state.me} />)
 
   return (
     <div className="play">
