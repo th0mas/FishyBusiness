@@ -1,9 +1,9 @@
-import { Bar, HorizontalBar } from "react-chartjs-2";
+import { HorizontalBar } from "react-chartjs-2";
 
 function StockGraph({ gameState }) {
 
   const data = {
-    labels: gameState.regions.map((x, i) => "region " + (i + 1)),
+    labels: gameState.regions.map((x) => x.name),
     datasets: [
       {
         label: 'Stock',
@@ -12,7 +12,7 @@ function StockGraph({ gameState }) {
         borderWidth: 1,
         hoverBackgroundColor: 'rgba(255,99,132,0.4)',
         hoverBorderColor: 'rgba(255,99,132,1)',
-        data: gameState.regions.map((x, i) => x.stock),
+        data: gameState.regions.map((x) => x.stock),
       },
     ],
   };
@@ -24,6 +24,8 @@ function StockGraph({ gameState }) {
         data={data}
         options={{
           responsive: true,
+          tooltips: { enabled: false },
+          hover: { mode: null },
           scales: {
             yAxes: [{
               ticks: {
