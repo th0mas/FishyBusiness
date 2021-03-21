@@ -5,6 +5,8 @@ defmodule FishyBusiness.Game.Manager do
 
   import FishyBusinessWeb.Endpoint
 
+  @tick_interval 1000
+
   @initial_state %{
     playing: true,
     regions: [
@@ -47,6 +49,7 @@ defmodule FishyBusiness.Game.Manager do
     current = gen_initial_state(players)
     broadcast!(game, "init_game", current)
     send(self(), :timed_event)
+    send(self(), :tick)
 
     state = state |>
       Map.put(:current, current)
@@ -73,6 +76,20 @@ defmodule FishyBusiness.Game.Manager do
     broadcast!(state.game, "update_state", updated)
 
     {:noreply, state |> Map.put(:current, updated)}
+  end
+
+  def handle_info(:tick, %{current: %{players: players} = current} = state) do
+    current = Enum.reduce(players, current, fn {_player, v}, c ->
+      Enum.reduce(v[:items], c, fn item, c_1 ->
+        c_1 |> List.insert_at(item["region"]["index"],
+          Map.put(item["region"], :stock, c_1[item["region"]["index"]] - item["region"]["rate"]))
+      end)
+    end)
+
+    broadcast!(state.game, "update_state", current)
+    Process.send_after(self(), :tick, @tick_interval)
+
+    {:noreply, state |> Map.put(:current, current)}
   end
 
   def gen_initial_state(players) do

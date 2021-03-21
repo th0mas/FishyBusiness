@@ -55,6 +55,10 @@ defmodule FishyBusinessWeb.GameChannel do
     {:noreply, socket}
   end
 
+  def handle_in("update_region_active", payload, socket) do
+
+    {:noreply, socket}
+  end
 
   # Default handler - if in doubt just push to clients
   def handle_in(event, payload, socket) do
