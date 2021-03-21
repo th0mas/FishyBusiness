@@ -7,23 +7,25 @@ defmodule FishyBusiness.Game.Manager do
 
   @tick_interval 1000
 
+  @replenish_rate 1.01
+
   @initial_state %{
     playing: true,
     regions: [
       %{
-        stock: 1000,
-        types: ["haddock", "cod"],
-        active: []
+        "stock" => 1000,
+        "types" => ["haddock", "cod"],
+        "active" => []
       },
       %{
-        stock: 20,
-        types: ["hake", "cod"],
-        active: []
+        "stock" => 20,
+        "types" => ["hake", "cod"],
+        "active" => []
       },
       %{
-        stock: 700,
-        types: ["haddock", "salmon"],
-        active: []
+        "stock" => 700,
+        "types" => ["haddock", "salmon"],
+        "active" => []
       },
     ]
   }
@@ -105,7 +107,12 @@ defmodule FishyBusiness.Game.Manager do
 
   def calculate_tick(current_state) do
     users = current_state.players |> Map.keys()
-    calculate_tick_user(current_state, users)
+    current_state = calculate_tick_user(current_state, users)
+
+    current_state
+      |> Map.put(:regions, Enum.map(current_state.regions, fn region ->
+        Map.update!(region, "stock", fn val -> trunc(val * @replenish_rate) end)
+      end))
   end
 
   def calculate_tick_user(current_state, [user | users]) do
@@ -130,7 +137,7 @@ defmodule FishyBusiness.Game.Manager do
           |> put_in([:regions], List.replace_at(current_state.regions, item["region"],
             current_state.regions
              |> Enum.at(item["region"])
-             |> Map.update!("stock", fn val -> val - fish_farmed end)
+             |> Map.update!("stock", fn val -> (val - fish_farmed) end)
           ))
           |> put_in([:players, user, :money], Integer.to_string((String.to_integer(get_in(current_state, [:players, user, :money]))) + fish_farmed))
         a
