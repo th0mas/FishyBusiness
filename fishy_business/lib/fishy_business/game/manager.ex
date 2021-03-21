@@ -88,6 +88,8 @@ defmodule FishyBusiness.Game.Manager do
 
   def handle_info({:set_regions, regions}, state ) do
     state = put_in(state, [:current, :regions], regions)
+
+    Logger.info(inspect state)
     {:noreply, state}
   end
 
