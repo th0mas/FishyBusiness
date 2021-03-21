@@ -7,8 +7,8 @@ function Region({ index, regionState, gameState }) {
 
   const handlefish = () => {
     console.log(gameState.me);
-    //console.log(gameState.me.regions_fished);
-    //dispatch('fish_region', { regions: new Set(gameState.me.regions_fished.push(index)) });
+    console.log(gameState.me.regions_fished);
+    dispatch('fish_region', { regions: new Set(gameState.me.regions_fished.push(index)) });
   }
 
   return (

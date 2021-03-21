@@ -29,7 +29,6 @@ defmodule FishyBusiness.Game.Manager do
   @initial_player %{
     money: 100,
     bait: 10,
-    items: []
   }
 
   # Initial State:
