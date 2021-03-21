@@ -17,7 +17,7 @@ const Leaderboard = ({ players }) => {
           </tr>
         </thead>
         <tbody className="bg-gray-200">
-        {orderedPlayers.map(player => <LeaderboardEntry key={player.name} player={player} />)}
+          {orderedPlayers.map(player => <LeaderboardEntry key={player.name} player={player} />)}
         </tbody>
       </table>
     </div>
