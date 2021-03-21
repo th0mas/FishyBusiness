@@ -1,12 +1,14 @@
 import { useContext } from "react";
 import dispatchContext from "../services/dispatchContext";
 
-function Region({ index, regionState }) {
+function Region({ index, regionState, gameState }) {
 
   let dispatch = useContext(dispatchContext);
 
   const handlefish = () => {
-    dispatch('update_state', { me: { region_fished: index } });
+    console.log(gameState.me);
+    //console.log(gameState.me.regions_fished);
+    //dispatch('fish_region', { regions: new Set(gameState.me.regions_fished.push(index)) });
   }
 
   return (
