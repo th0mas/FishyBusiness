@@ -21,7 +21,7 @@ function Play({ state }) {
       }
       <div className="flex">
         <div className="flex-1">
-          <Leaderboard players={state.players} />
+          <Leaderboard me={state.me} players={state.players} />
         </div>
         <div className="">
           <StockGraph gameState={state} />
