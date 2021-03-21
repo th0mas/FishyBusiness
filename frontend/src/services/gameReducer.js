@@ -25,7 +25,7 @@ const gameReducer = (state, event) => {
     case 'items_update':
       return { ...state, me: { ...state.me, items: event.payload } }
     case 'money_update':
-      return { ...state, me: { ...state.me, money: event.payload } }
+      return { ...state, me: { ...state.me, money: parseInt(event.payload) } }
     case 'init_game':
       return { ...state, ...event.payload }
     case 'update_state':
