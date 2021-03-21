@@ -3,6 +3,7 @@ import Leaderboard from "../components/Leaderboard";
 import Navbar from "../components/Navbar";
 import Region from "../components/Region";
 import SlideWindow from "../components/SlideWindow";
+import StockGraph from "../components/StockGraph";
 
 function Play({ state }) {
   const [showShop, setShowShop] = useState(false);
@@ -22,6 +23,7 @@ function Play({ state }) {
         <Leaderboard players={state.players} />
       </div>
       <div className="flex">{regions}</div>
+      <StockGraph gameState={state} />
     </div>
   );
 }
