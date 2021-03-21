@@ -63,7 +63,6 @@ defmodule FishyBusinessWeb.GameChannel do
 
   # Default handler - if in doubt just push to clients
   def handle_in(event, payload, socket) do
-    Logger.info(inspect(event) <> " : " <> inspect(payload))
     broadcast!(socket, event, payload)
 
     {:noreply, socket}

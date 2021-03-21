@@ -77,9 +77,8 @@ defmodule FishyBusiness.Game.Manager do
     {:noreply, state |> Map.put(:current, updated)}
   end
 
-  def handle_info(:tick, %{current: %{regions: regions} = current} = state) do
-    Logger.warn(inspect regions)
-
+  def handle_info(:tick, %{current: current} = state) do
+    current = calculate_tick(current)
     broadcast!(state.game, "update_state", current)
     Process.send_after(self(), :tick, @tick_interval)
 
@@ -89,7 +88,6 @@ defmodule FishyBusiness.Game.Manager do
   def handle_info({:set_regions, regions}, state ) do
     state = put_in(state, [:current, :regions], regions)
 
-    Logger.info(inspect state)
     {:noreply, state}
   end
 
@@ -102,6 +100,43 @@ defmodule FishyBusiness.Game.Manager do
       |> Map.put(:me, @initial_player)
 
     i
+  end
+
+
+  def calculate_tick(current_state) do
+    users = current_state.players |> Map.keys()
+    calculate_tick_user(current_state, users)
+  end
+
+  def calculate_tick_user(current_state, [user | users]) do
+    # Run region calc
+    current_state = calculate_tick_items(current_state, user, get_in(current_state, [:players, user, :items]))
+    calculate_tick_user(current_state, users)
+  end
+
+  def calculate_tick_user(current_state, []) do
+    current_state
+  end
+
+  def calculate_tick_items(current_state, user, [item | items]) do
+    current_state =
+      unless item["region"] == nil do
+        a =
+        current_state
+        |> put_in([:regions], List.replace_at(current_state.regions, item["region"],
+            current_state.regions
+            |> Enum.at(item["region"])
+            |> Map.update!("stock", fn val -> val - item["rate"] end)
+          ))
+        a
+      else
+        current_state
+      end
+    calculate_tick_items(current_state, user, items)
+  end
+
+  def calculate_tick_items(current_state, _user, []) do
+    current_state
   end
 
 
