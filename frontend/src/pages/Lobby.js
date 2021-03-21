@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useHistory } from "react-router";
 import dispatchContext from "../services/dispatchContext";
 
-function Lobby({ state, gameCode, updateplayername }) {
+function Lobby({ state, gameCode }) {
   const history = useHistory();
 
   let dispatch = useContext(dispatchContext)
@@ -17,7 +17,7 @@ function Lobby({ state, gameCode, updateplayername }) {
         <p>code: {gameCode}</p>
       </div>
       <div className="players m-2 text-lg text-white">
-        <h3>opponents:</h3>
+        <h3>players:</h3>
         {
           state.players.map((p, index) => {
             console.log(p)

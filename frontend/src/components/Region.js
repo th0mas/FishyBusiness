@@ -1,7 +1,12 @@
+import { useContext } from "react";
+import dispatchContext from "../services/dispatchContext";
+
 function Region({ index, regionState }) {
 
+  let dispatch = useContext(dispatchContext);
+
   const handlefish = () => {
-    console.log("fishing region " + (index + 1));
+    dispatch('update_state', { me: { region_fished: index } });
   }
 
   return (

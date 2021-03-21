@@ -29,6 +29,7 @@ const gameReducer = (state, event) => {
     case 'init_game':
       return { ...state, ...event.payload }
     case 'update_state':
+      console.log(_.merge(state, event.payload))
       return _.merge(state, event.payload)
     default:
       return state
