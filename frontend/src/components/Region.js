@@ -52,7 +52,7 @@ function Region({ index, regionState, gameState, me }) {
     <div className="region w-full m-2 p-2 border-2 rounded-md border-blue-400">
       <div className="flex flex-col justify-items-stretch">
         <div className="flex-1">
-          <h1 className="font-semibold">Region: {index + 1}</h1>
+          <h1 className="font-semibold">Region: {regionState.name}</h1>
           <p>Players here: </p>
           {
             regionState.active.map((value, index) => <p key={index}>{value}</p>)

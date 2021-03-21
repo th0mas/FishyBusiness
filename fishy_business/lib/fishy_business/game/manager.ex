@@ -13,16 +13,19 @@ defmodule FishyBusiness.Game.Manager do
     playing: true,
     regions: [
       %{
+        "name" => "Atlantic",
         "stock" => 1000,
         "types" => ["haddock", "cod"],
         "active" => []
       },
       %{
+        "name" => "Pacific",
         "stock" => 20,
         "types" => ["hake", "cod"],
         "active" => []
       },
       %{
+        "name" => "North Sea",
         "stock" => 700,
         "types" => ["haddock", "salmon"],
         "active" => []
