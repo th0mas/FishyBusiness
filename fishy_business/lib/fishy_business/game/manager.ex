@@ -71,19 +71,24 @@ defmodule FishyBusiness.Game.Manager do
   end
 
   def handle_info({:money_update, %{money: money, client: client}}, %{current: current} = state) do
-    Logger.warn(inspect current)
     updated = put_in(current, [:players, client, :money], money)
     broadcast!(state.game, "update_state", updated)
 
     {:noreply, state |> Map.put(:current, updated)}
   end
 
-  def handle_info(:tick, %{current: %{players: players} = current} = state) do
+  def handle_info(:tick, %{current: %{regions: regions} = current} = state) do
+    Logger.warn(inspect regions)
 
     broadcast!(state.game, "update_state", current)
     Process.send_after(self(), :tick, @tick_interval)
 
     {:noreply, state |> Map.put(:current, current)}
+  end
+
+  def handle_info({:set_regions, regions}, state ) do
+    state = put_in(state, [:current, :regions], regions)
+    {:noreply, state}
   end
 
   def gen_initial_state(players) do

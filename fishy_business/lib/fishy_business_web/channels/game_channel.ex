@@ -56,7 +56,8 @@ defmodule FishyBusinessWeb.GameChannel do
   end
 
   def handle_in("update_region_active", payload, socket) do
-
+    send(get_manager_pid(socket), {:set_regions, payload["regions"]})
+    broadcast!(socket, "update_region_active", payload)
     {:noreply, socket}
   end
 
