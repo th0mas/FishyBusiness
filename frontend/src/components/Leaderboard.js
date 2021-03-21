@@ -1,6 +1,8 @@
 import LeaderboardEntry from './LeaderboardEntry';
 
 const Leaderboard = ({ players }) => {
+  let orderedPlayers = [...players].sort((a, b) => (a.money < b.money) ? 1 : -1)
+
   return (
     <div>
       <table className="min-w-full table-auto">
@@ -15,7 +17,7 @@ const Leaderboard = ({ players }) => {
           </tr>
         </thead>
         <tbody className="bg-gray-200">
-        {players.map(player => <LeaderboardEntry key={player.name} player={player} />)}
+        {orderedPlayers.map(player => <LeaderboardEntry key={player.name} player={player} />)}
         </tbody>
       </table>
     </div>
