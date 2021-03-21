@@ -131,19 +131,7 @@ defmodule FishyBusiness.Game.Manager do
   def calculate_tick_items(current_state, user, [item | items]) do
     current_state =
       unless item["region"] == nil do
-        fish_farmed = current_state.regions
-          |> Enum.at(item["region"])
-          |> Map.get("stock")
-          |> get_fish_delta(item["rate"])
-        a =
-        current_state
-          |> put_in([:regions], List.replace_at(current_state.regions, item["region"],
-            current_state.regions
-             |> Enum.at(item["region"])
-             |> Map.update!("stock", fn val -> (val - fish_farmed) end)
-          ))
-          |> put_in([:players, user, :money], Integer.to_string((String.to_integer(get_in(current_state, [:players, user, :money]))) + fish_farmed))
-        a
+        calculate_item_delta(current_state, user, item, item["region"])
       else
         current_state
       end
@@ -160,4 +148,25 @@ defmodule FishyBusiness.Game.Manager do
     prev_fish - new_fish
   end
 
+  def calculate_item_delta(current_state, user, item, [region | regions]) do
+
+    fish_farmed = current_state.regions
+          |> Enum.at(region)
+          |> Map.get("stock")
+          |> get_fish_delta(item["rate"])
+        a =
+        current_state
+          |> put_in([:regions], List.replace_at(current_state.regions, region,
+            current_state.regions
+             |> Enum.at(region)
+             |> Map.update!("stock", fn val -> (val - fish_farmed) end)
+          ))
+          |> put_in([:players, user, :money], Integer.to_string((String.to_integer(get_in(current_state, [:players, user, :money]))) + fish_farmed))
+
+    calculate_item_delta(a, user, item, regions)
+  end
+
+  def calculate_item_delta(current_state, _user, _item, []) do
+    current_state
+  end
 end
