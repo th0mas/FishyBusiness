@@ -16,6 +16,7 @@ function Game({ name, token, gameCode }) {
     },
     ],
     me: {
+      regions_fished: [],
       name: name,
       money: 15,
       bait: 10,
@@ -26,8 +27,6 @@ function Game({ name, token, gameCode }) {
   const [state, localDispatch] = useChannel(name, gameCode, gameReducer, initialState, token);
 
   return (
-
-
     <dispatchContext.Provider value={localDispatch}>
       { state.playing
         ? <Play state={state} />
