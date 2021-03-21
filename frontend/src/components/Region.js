@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import dispatchContext from "../services/dispatchContext";
 import DropdownMenu from "./DropdownMenu";
+import Error from "./Error";
 
 function Region({ index, regionState, gameState, me }) {
 
   let dispatch = useContext(dispatchContext);
+  const [error, setError] = useState(false);
 
   const handleFish = (item, region) => {
     let newItems = [...me.items]
@@ -30,7 +32,7 @@ function Region({ index, regionState, gameState, me }) {
 
   }
 
-  const handleOilSpill = (region) => {
+  const handleOilSpill = () => {
     if (me.items.some(item => item.name === "Oil Spill")) {
       let newRegions = [...gameState.regions]
       newRegions[index].stock = Math.floor(newRegions[index].stock / 2)
@@ -39,7 +41,9 @@ function Region({ index, regionState, gameState, me }) {
       newItems = newItems.filter(item => item.name !== "Oil Spill")
 
       dispatch("items_update", newItems)
-      dispatch("update_region_active", { regions: newRegions })
+      dispatch("update_region_active", {regions: newRegions})
+    } else {
+      setError(true)
     }
 
   }
@@ -67,6 +71,7 @@ function Region({ index, regionState, gameState, me }) {
             </button>
           </div>
         </div>
+            { error && <Error msg="You do not have any oil!" setError={setError} /> }
       </div>
     </ div>
   );

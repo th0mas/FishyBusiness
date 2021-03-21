@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :fishy_business, FishyBusiness.Repo,
-  username: "tomh",
-  password: "",
+  username: "postgres",
+  password: "postgres",
   database: "fishy_business_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
