@@ -9,6 +9,8 @@ module.exports = {
       ringWidth: ['hover'],
       outline: ['hover'],
       ringColor: ['hover'],
+      scale: ['group-hover'],
+      transform: ['group-hover'],
     },
   },
   plugins: [],

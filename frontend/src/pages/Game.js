@@ -5,7 +5,6 @@ import gameReducer from "../services/gameReducer"
 import dispatchContext from "../services/dispatchContext";
 
 function Game({ name, token, gameCode }) {
-  console.log(name)
   const initialState = {
     playing: false,
     players: [],
