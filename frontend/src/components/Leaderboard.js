@@ -1,6 +1,6 @@
 import LeaderboardEntry from './LeaderboardEntry';
 
-const Leaderboard = ({ players }) => {
+const Leaderboard = ({ players, me }) => {
   const orderedPlayers = []
 
   for (const player in players) {
@@ -23,7 +23,7 @@ const Leaderboard = ({ players }) => {
           </tr>
         </thead>
         <tbody className="bg-gray-200">
-          {orderedPlayers.map(player => <LeaderboardEntry key={player.name} player={player} />)}
+          {orderedPlayers.map(player => <LeaderboardEntry key={player.name} player={player} me={player.name === me.name}/>)}
         </tbody>
       </table>
     </div>

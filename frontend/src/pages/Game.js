@@ -19,7 +19,6 @@ function Game({ name, token, gameCode }) {
       regions_fished: new Set(),
       name: name,
       money: 15,
-      bait: 10,
       items: [],
     },
   };
